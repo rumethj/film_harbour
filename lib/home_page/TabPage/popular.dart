@@ -1,3 +1,4 @@
+import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -34,24 +35,24 @@ class _PopularState extends State<Popular> {
       {
         
         var tempData = jsonDecode(popularMovieResponse.body);
-        var trendingMovieJson = tempData['results'];
+        var poularMovieJson = tempData['results'];
         
-        for (var i = 0; i< trendingMovieJson.length; i++)
+        for (var i = 0; i< poularMovieJson.length; i++)
         {
           popularList.add({
-            'id': trendingMovieJson[i]['id'],
-            'title': trendingMovieJson[i]['title'],
-            'poster_path': trendingMovieJson[i]['poster_path'],
-            'vote_average': trendingMovieJson[i]['vote_average'],
-            'media_type': trendingMovieJson[i]['media_type'],
+            'id': poularMovieJson[i]['id'],
+            'title': poularMovieJson[i]['title'],
+            'poster_path': poularMovieJson[i]['poster_path'],
+            'vote_average': poularMovieJson[i]['vote_average'],
+            'media_type': poularMovieJson[i]['media_type'],
             'indexno': i,
-            'date': trendingMovieJson[i]['release_date'],
+            'date': poularMovieJson[i]['release_date'],
           });
         }
       }
       else
       {
-        print(popularMovieResponse.statusCode);
+        print("Error: ${popularMovieResponse.statusCode}:${popularMovieResponse.reasonPhrase}");
       }
       
     }
@@ -65,24 +66,24 @@ class _PopularState extends State<Popular> {
       {
         
         var tempData = jsonDecode(popularTvResponse.body);
-        var trendingMovieJson = tempData['results'];
+        var popularTvJson = tempData['results'];
         
-        for (var i = 0; i< trendingMovieJson.length; i++)
+        for (var i = 0; i< popularTvJson.length; i++)
         {
           popularList.add({
-            'id': trendingMovieJson[i]['id'],
-            'title': trendingMovieJson[i]['name'],
-            'poster_path': trendingMovieJson[i]['poster_path'],
-            'vote_average': trendingMovieJson[i]['vote_average'],
-            'media_type': trendingMovieJson[i]['media_type'],
+            'id': popularTvJson[i]['id'],
+            'title': popularTvJson[i]['name'],
+            'poster_path': popularTvJson[i]['poster_path'],
+            'vote_average': popularTvJson[i]['vote_average'],
+            'media_type': popularTvJson[i]['media_type'],
             'indexno': i,
-            'date': trendingMovieJson[i]['first_air_date'],
+            'date': popularTvJson[i]['first_air_date'],
           });
         }
       }
       else
       {
-        print(popularTvResponse.statusCode);
+        print("Error: ${popularTvResponse.statusCode}:${popularTvResponse.reasonPhrase}");
       }
     }     
   }
@@ -146,7 +147,15 @@ class _PopularState extends State<Popular> {
                       return GestureDetector(
                         onTap: () {
                           print(popularList[index]['title']);
-                          //Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ItemDetails(),));
+                          if (popularList[index]['media_type'] == 'movie')
+                          {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MovieDetailsPage(popularList[index]['id']),));
+                          }
+                          else if (popularList[index]['media_type'] == 'tv')
+                          {
+                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TvDetailsPage(popularList[index]['id']),));
+                          }
+                          
                         },
                         child: Container(
                           decoration: BoxDecoration(

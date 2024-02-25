@@ -17,5 +17,11 @@ class ApiLink
   static const String tvUpcomingUrl = "${ApiConstants.baseUrl}tv/upcoming?api_key=${ApiConstants.apiKey}";
   static const String tvTopGrossingUrl = "${ApiConstants.baseUrl}discover/tv?api_key=${ApiConstants.apiKey}&sort_by=revenue.desc";
 
-  static const String testUrl = "https://api.themoviedb.org/3/trending/movies/day?api_key=${ApiConstants.apiKey}";
+  // Specific Detail Urls
+
+  static String movieDetailsUrl(String id) => '${ApiConstants.baseUrl}movie/${id}?api_key=${ApiConstants.apiKey}';
+  static String movieReviewsUrl(String id) => '${ApiConstants.baseUrl}movie/${id}reviews?api_key=${ApiConstants.apiKey}';
+  static String movieSimilarUrl(String id) => '${ApiConstants.baseUrl}movie/${id}similar?api_key=${ApiConstants.apiKey}';
+  static String movieRecommendationsUrl(String id) => '${ApiConstants.baseUrl}movie/${id}recommendations?api_key=${ApiConstants.apiKey}';
+  static String movieTrailerUrl(String id) => '${ApiConstants.baseUrl}movie/${id}videos?api_key=${ApiConstants.apiKey}';
 }
