@@ -170,7 +170,128 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      
+      backgroundColor: const Color.fromRGBO(14, 14, 14, 1),
+      body: FutureBuilder(
+        future: movieDetails(),
+        builder: (context, snapshot)
+        {
+          if (snapshot.connectionState == ConnectionState.done)
+          {
+            return CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                SliverAppBar(
+                  automaticallyImplyLeading: false,
+                  leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back),
+                    iconSize: 28,
+                    color: Colors.white,
+                  ),
+                  actions: [
+                    IconButton(
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomePage()),
+                        (route) => false
+                      );
+                    },
+                    icon: Icon(Icons.home_filled),
+                    iconSize: 28,
+                    color: Colors.white,
+                    )
+                  ],
+                  backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
+                  centerTitle: false,
+                  pinned: true,
+
+                  expandedHeight: MediaQuery.of(context).size.height * 0.4,
+                  flexibleSpace: FlexibleSpaceBar(
+                    collapseMode: CollapseMode.parallax,
+                    background: FittedBox(
+                      fit: BoxFit.fill,
+                      child: watchTrailer(
+                        trailerYtId: trailerList[0]['key'],
+                      ),
+                    ),
+                  ),
+                ),
+
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    Column(
+                      children: [
+                        // Display Genres
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(left: 10, top: 10),
+                              height: 50,
+                              width: MediaQuery.of(context).size.width,
+                              child: ListView.builder(
+                                physics: BouncingScrollPhysics(),
+                                scrollDirection: Axis.horizontal,
+                                itemCount: genresList.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                      color: Color.fromRGBO(25, 25, 25, 1),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Text(genresList[index].toString())
+                                  );
+                                }
+                                ),
+                            )
+                          ],
+                        ),
+
+                        //
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              margin: EdgeInsets.only(left: 10, top: 10),
+                              height: 40,
+                              decoration: BoxDecoration(
+                                      color: Color.fromRGBO(25, 25, 25, 1),
+                                      borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(itemDetails[0]['runtime'].toString() + 'minutes'),
+                            
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
+
+                    // Overview section
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10),
+                      child: Text('Overveiw'),
+                    ),
+
+                    Padding(
+                      padding: EdgeInsets.only(left: 20, top: 10),
+                      child: Text(itemDetails[0]['overview'].toString()),
+                    ),
+                    
+                    ])
+                  )
+              ]
+            );
+          }
+          else
+          {
+
+          }
+        }
+      ),
     );
   }
 }
