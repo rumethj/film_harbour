@@ -4,6 +4,9 @@ import 'package:film_harbour/api_key/api_links.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:film_harbour/home_page/TabPage/popular.dart';
+import 'package:film_harbour/home_page/TabPage/upcoming.dart';
+import 'package:film_harbour/home_page/TabPage/top_grossing.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -15,6 +18,7 @@ class HomePage extends StatefulWidget
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 {
+
   List<Map<String, dynamic>> trendingList = [];
 
   Future<void> trendinglisthome() async
@@ -61,7 +65,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
           print("Enter");
           trendingList.add({
             'id': trendingMovieJson[i]['id'],
-            'title': trendingMovieJson[i]['title'],
+            'title': trendingMovieJson[i]['name'],
             'poster_path': trendingMovieJson[i]['poster_path'],
             'vote_average': trendingMovieJson[i]['vote_average'],
             'media_type': trendingMovieJson[i]['media_type'],
@@ -81,6 +85,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
   @override
   Widget build(BuildContext context)
   {
+    print('Parent Widget Rebuilt with userSelection: $uSelection');
     TabController _tabController = TabController(length: 3, vsync: this);
 
     return Scaffold(
@@ -184,8 +189,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                             setState(() {
                               trendingList.clear(); //clear lists top update fields
                               uSelection = value.toString();
+                              updateUserSelection(value!);
                             });
-
+                            
                           },
 
                           autofocus: true,
@@ -234,11 +240,52 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
             delegate: SliverChildListDelegate([
               Center(
                 child: Text("Sample Text"),
-              )
+              ),
+
+              // Tab Bar
+              Container(
+                  height: 45,
+                  width: MediaQuery.of(context).size.width,
+                  child: TabBar(
+                    controller: _tabController,
+                    physics: BouncingScrollPhysics(),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 25),
+                    isScrollable: true,
+                    indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.amber.withOpacity(0.4),
+                    ),
+                    tabs: [
+                      Tab(child: Text('Popular')),
+                      Tab(child: Text('Upcoming')),
+                      Tab(child: Text('TopGrossing')),
+                    ],
+                  ),
+              ),
+              Container(
+                height: 1050,
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    Popular(uSelection: uSelection), // use parameters to define tv shows or movies
+                    Upcoming(uSelection: uSelection),
+                    TopGrossing(uSelection: uSelection),
+                  ],
+                ),
+              ),
             ])
           )
         ],
       ),
     );
+  }
+
+
+  // Update userSelection and trigger a rebuild of the Popular widget
+  void updateUserSelection(String newSelection) {
+    setState(() {
+      uSelection = newSelection;
+    });
+    // Now, the Popular widget will be rebuilt with the updated userSelection
   }
 }
