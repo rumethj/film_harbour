@@ -4,9 +4,9 @@ import 'package:film_harbour/api_key/api_links.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:film_harbour/home_page/TabPage/popular.dart';
-import 'package:film_harbour/home_page/TabPage/upcoming.dart';
-import 'package:film_harbour/home_page/TabPage/top_grossing.dart';
+import 'package:film_harbour/home_page/tab_page/popular.dart';
+import 'package:film_harbour/home_page/tab_page/upcoming.dart';
+import 'package:film_harbour/home_page/tab_page/top_grossing.dart';
 
 class HomePage extends StatefulWidget
 {

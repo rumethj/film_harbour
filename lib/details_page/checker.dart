@@ -22,7 +22,7 @@ class _DescriptionCheckUiState extends State<DescriptionCheckUi> {
     }
     else if (widget.newType == 'tv')
     {
-      return TvDetailsPage(widget.newId);
+      //return TvDetailsPage(widget.newId);
     }
     else
     {

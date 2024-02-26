@@ -29,7 +29,7 @@ class _PopularState extends State<Popular> {
     {
       print('got into movie');
       var popularMovieResponse = await http.get(Uri.parse(ApiLink.moviePopularUrl));
-      print('Response Status Code: ${popularMovieResponse.statusCode}');
+      //print('Response Status Code: ${popularMovieResponse.statusCode}');
       //print('Response Body: ${popularMovieResponse.body}');
       if (popularMovieResponse.statusCode == 200)
       {
@@ -44,7 +44,6 @@ class _PopularState extends State<Popular> {
             'title': poularMovieJson[i]['title'],
             'poster_path': poularMovieJson[i]['poster_path'],
             'vote_average': poularMovieJson[i]['vote_average'],
-            'media_type': poularMovieJson[i]['media_type'],
             'indexno': i,
             'date': poularMovieJson[i]['release_date'],
           });
@@ -75,7 +74,6 @@ class _PopularState extends State<Popular> {
             'title': popularTvJson[i]['name'],
             'poster_path': popularTvJson[i]['poster_path'],
             'vote_average': popularTvJson[i]['vote_average'],
-            'media_type': popularTvJson[i]['media_type'],
             'indexno': i,
             'date': popularTvJson[i]['first_air_date'],
           });
@@ -147,13 +145,14 @@ class _PopularState extends State<Popular> {
                       return GestureDetector(
                         onTap: () {
                           print(popularList[index]['title']);
-                          if (popularList[index]['media_type'] == 'movie')
+                          if (uSelection == "movie")
                           {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => MovieDetailsPage(popularList[index]['id']),));
+                            print(popularList[index]['id']);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MovieDetailsPage(popularList[index]['id']),));
                           }
-                          else if (popularList[index]['media_type'] == 'tv')
+                          else if (uSelection == 'tv')
                           {
-                            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => TvDetailsPage(popularList[index]['id']),));
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => Placeholder()));//TvDetailsPage(popularList[index]['id']),));
                           }
                           
                         },
