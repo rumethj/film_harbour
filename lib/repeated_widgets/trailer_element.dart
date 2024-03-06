@@ -4,9 +4,9 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class WatchTrailer extends StatefulWidget {
 
-  var trailerYtId;
+  var ytTrailerId;
 
-  WatchTrailer(this.trailerYtId);
+  WatchTrailer(this.ytTrailerId);
 
   @override
   State<WatchTrailer> createState() => _WatchTrailerState();
@@ -17,7 +17,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
 
   @override
   void initState() {
-    final videoid = YoutubePlayer.convertUrlToId(widget.trailerYtId);
+    final videoid = YoutubePlayer.convertUrlToId(widget.ytTrailerId);
     _controller = YoutubePlayerController(
       initialVideoId: videoid.toString(),
       flags: YoutubePlayerFlags(
@@ -28,7 +28,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
         forceHD: true,
       ),
     );
-  }
+  } // sarbagyastha.com.np (2024) Youtube_player_flutter, pub.dev. Available at: https://pub.dev/packages/youtube_player_flutter.
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
       padding: const EdgeInsets.all(0.0),
       child: YoutubePlayer(
         thumbnail: Image.network(
-          "https://img.youtube.com/vi/" + widget.trailerYtId + "/hqdefault.jpg",
+          "https://img.youtube.com/vi/" + widget.ytTrailerId + "/hqdefault.jpg",
           fit: BoxFit.cover,
         ),
         controlsTimeOut: Duration(milliseconds: 1500),
@@ -49,6 +49,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
             valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
           )),
         ),
+        
         progressIndicatorColor: Colors.amber,
         bottomActions: [
           CurrentPosition(),

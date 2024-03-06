@@ -42,6 +42,7 @@ class _UserReviewState extends State<UserReview> {
                   },
                   child: Row(
                     children: [
+                      // check if user wants to see all reviews
                       showAll == false
                           ? Text(
                               'All Reviews ' + '${reviewDetailsList.length} ',
@@ -50,6 +51,7 @@ class _UserReviewState extends State<UserReview> {
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             )
+                          // else/false
                           : Text(
                               'Show Less',
                               style: TextStyle(
