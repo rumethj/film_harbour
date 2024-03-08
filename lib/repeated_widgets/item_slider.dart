@@ -1,4 +1,5 @@
 import 'package:film_harbour/api_key/api_constants.dart';
+import 'package:film_harbour/details_page/checker.dart';
 import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:flutter/material.dart';
 
@@ -17,20 +18,12 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
-                    if (itemType == 'movie') {
                       // print(firstlistname[index]['id']);
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => MovieDetailsPage(itemList[index]['id'])
+                              builder: (context) => DescriptionCheckUi(itemList[index]['id'], itemType)
                           ));
-                    } else if (itemType == 'tv') {
-                      // print(firstlistname[index]['id']);
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => Placeholder()));//TvDetailsPage(itemList[index]['id'])));
-                    }
                   },
                   child: Container(
                       decoration: BoxDecoration(

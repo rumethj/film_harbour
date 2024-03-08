@@ -1,4 +1,5 @@
 import 'package:film_harbour/api_key/api_constants.dart';
+import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
 import "package:flutter/material.dart";
 import 'package:film_harbour/api_key/api_links.dart';
 import 'package:http/http.dart' as http;
@@ -238,9 +239,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 
           SliverList(
             delegate: SliverChildListDelegate([
-              Center(
-                child: Text("Sample Text"),
-              ),
+              // Search Bar
+              SearchBarNew(),
 
               // Tab Bar
               Container(

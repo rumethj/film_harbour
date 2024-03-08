@@ -24,4 +24,7 @@ class ApiLink
   static String movieSimilarUrl(String id) => '${ApiConstants.baseUrl}movie/$id/similar?api_key=${ApiConstants.apiKey}';
   static String movieRecommendationsUrl(String id) => '${ApiConstants.baseUrl}movie/$id/recommendations?api_key=${ApiConstants.apiKey}';
   static String movieTrailerUrl(String id) => '${ApiConstants.baseUrl}movie/$id/videos?api_key=${ApiConstants.apiKey}';
-}
+
+  // Search
+  static String searchUrl(String query) => '${ApiConstants.baseUrl}search/multi?api_key=${ApiConstants.apiKey}&query=$query&sort_by=popularity.desc"';
+ }

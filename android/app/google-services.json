@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "379328720395",
-    "project_id": "film-harbour",
-    "storage_bucket": "film-harbour.appspot.com"
+    "project_number": "906104071522",
+    "project_id": "film-harbour-c9d00",
+    "storage_bucket": "film-harbour-c9d00.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:379328720395:android:90ca470771014d92b9a10e",
+        "mobilesdk_app_id": "1:906104071522:android:05611268204e7a68cc783b",
         "android_client_info": {
           "package_name": "com.example.film_harbour"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAtw-CCdK-ojavPTTN2rWDsLEmdfU43SSg"
+          "current_key": "AIzaSyCXiNWpcRF77hQLZqcnLhPg-8dGzEfjeOQ"
         }
       ],
       "services": {
