@@ -73,7 +73,7 @@ class CustomNavigationBar extends StatelessWidget {
                 Navigator.pushReplacement(
                       context,
                       PageRouteBuilder(
-                        pageBuilder: (context, animation, secondaryAnimation) => LogIn(),
+                        pageBuilder: (context, animation, secondaryAnimation) => LogInPage(),
                         transitionsBuilder: (context, animation, secondaryAnimation, child) {
                           return SlideTransition(
                             position: Tween<Offset>(

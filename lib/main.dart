@@ -25,11 +25,12 @@ class MyApp extends StatelessWidget {
         brightness:Brightness.dark,
         useMaterial3: true,
       ),
+      
       debugShowCheckedModeBanner: false,
       title: "Film Harbour",
       //home: HomePage(),
-      home: LogIn(),
-      //home: SignUp(),
+      //home: LogInPage(),
+      home: SignUpPage(),
       //home: UserListsPage(),
     );
   }

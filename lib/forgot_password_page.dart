@@ -2,14 +2,14 @@ import 'package:film_harbour/sign_up_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({super.key});
+class ForgotPasswordPage extends StatefulWidget {
+  const ForgotPasswordPage({super.key});
 
   @override
-  State<ForgotPassword> createState() => _ForgotPasswordState();
+  State<ForgotPasswordPage> createState() => _ForgotPasswordState();
 }
 
-class _ForgotPasswordState extends State<ForgotPassword> {
+class _ForgotPasswordState extends State<ForgotPasswordPage> {
   String email = "";
   TextEditingController mailTextController = new TextEditingController();
 
@@ -147,7 +147,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SignUp()));
+                                          builder: (context) => SignUpPage()));
                                 },
                                 child: Text(
                                   "Create",
