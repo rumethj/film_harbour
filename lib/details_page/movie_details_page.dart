@@ -1,6 +1,8 @@
 import 'package:film_harbour/api_key/api_links.dart';
 import 'package:film_harbour/home_page/home_page.dart';
+import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/item_slider.dart';
+import 'package:film_harbour/repeated_widgets/user_list_action.dart';
 import 'package:film_harbour/repeated_widgets/user_review_element.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/api_key/api_constants.dart';
@@ -8,6 +10,9 @@ import 'package:flutter/widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:film_harbour/repeated_widgets/trailer_element.dart';
+import 'package:share_plus/share_plus.dart';
+import 'dart:html' as html;
+
 
 class MovieDetailsPage extends StatefulWidget {
 
@@ -31,7 +36,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   Future <void> movieDetails() async
   {
     // Movie Details
-    var movieDetailsResponse = await http.get(Uri.parse(ApiLink.movieDetailsUrl(widget.itemId.toString())));
+    var movieDetailsResponse = await http.get(Uri.parse(ApiLink.itemDetailsUrl(widget.itemId.toString(), 'movie')));
     print('Response Status Code: ${movieDetailsResponse.statusCode}');
     if (movieDetailsResponse.statusCode == 200)
     {
@@ -39,21 +44,21 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
       //var tempData = jsonDecode(movieDetailsResponse.body);
       var movieDetailsJsonResults = jsonDecode(movieDetailsResponse.body);
         
-      for (var i = 0; i< 1; i++)
-      {
+      // for (var i = 0; i< 1; i++)
+      // {
         itemDetails.add({
           'backdrop_path': movieDetailsJsonResults['backdrop_path'],
           'title': movieDetailsJsonResults['title'],
           'poster_path': movieDetailsJsonResults['poster_path'],
-          'vote_average': movieDetailsJsonResults['vote_average'],
-          'release_date': movieDetailsJsonResults['release_date'],
-          'overview': movieDetailsJsonResults['overview'],
-          'runtime': movieDetailsJsonResults['runtime'],
-          'budget': movieDetailsJsonResults['budget'],
-          'revenue': movieDetailsJsonResults['revenue'],
+          'vote_average': movieDetailsJsonResults['vote_average'] ?? 'N/A',
+          'release_date': movieDetailsJsonResults['release_date'] ?? 'N/A',
+          'overview': movieDetailsJsonResults['overview'] ?? 'N/A',
+          'runtime': movieDetailsJsonResults['runtime'] ?? 'N/A',
+          'budget': movieDetailsJsonResults['budget'] == 0 ? "N/A" : movieDetailsJsonResults['budget'],
+          'revenue': movieDetailsJsonResults['revenue'] == 0 ? 'N/A' : movieDetailsJsonResults['revenue'],
           'media_type': 'movie',
         });
-      }
+      //}
       for (int i = 0; i<movieDetailsJsonResults['genres'].length; i++)
       {
         genresList.add(movieDetailsJsonResults['genres'][i]['name']);
@@ -65,7 +70,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     }
 
     // Similar Movies
-    var similarMoviesResponse = await http.get(Uri.parse(ApiLink.movieSimilarUrl(widget.itemId.toString())));
+    var similarMoviesResponse = await http.get(Uri.parse(ApiLink.itemSimilarUrl(widget.itemId.toString(), 'movie')));
     print('Response Status Code: ${similarMoviesResponse.statusCode}');
     if (similarMoviesResponse.statusCode == 200)
     {
@@ -79,8 +84,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           'backdrop_path': similarMoviesJsonResults[i]['backdrop_path'],
           'title': similarMoviesJsonResults[i]['title'],
           'poster_path': similarMoviesJsonResults[i]['poster_path'],
-          'vote_average': similarMoviesJsonResults[i]['vote_average'],
-          'release_date': similarMoviesJsonResults[i]['release_date'],
+          'vote_average': similarMoviesJsonResults[i]['vote_average'] ?? 'N/A',
+          'release_date': similarMoviesJsonResults[i]['release_date'] ?? 'N/A',
           'id': similarMoviesJsonResults[i]['id'],
         });
       }
@@ -91,7 +96,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     }
 
     // Recommended Movies
-    var recommendedMoviesResponse = await http.get(Uri.parse(ApiLink.movieRecommendationsUrl(widget.itemId.toString())));
+    var recommendedMoviesResponse = await http.get(Uri.parse(ApiLink.itemRecommendationsUrl(widget.itemId.toString(), 'movie')));
     print('Response Status Code: ${recommendedMoviesResponse.statusCode}');
     if (recommendedMoviesResponse.statusCode == 200)
     {
@@ -105,8 +110,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           'backdrop_path': recommendedMoviesJsonResults[i]['backdrop_path'],
           'title': recommendedMoviesJsonResults[i]['title'],
           'poster_path': recommendedMoviesJsonResults[i]['poster_path'],
-          'vote_average': recommendedMoviesJsonResults[i]['vote_average'],
-          'release_date': recommendedMoviesJsonResults[i]['release_date'],
+          'vote_average': recommendedMoviesJsonResults[i]['vote_average'] ?? 'N/A',
+          'release_date': recommendedMoviesJsonResults[i]['release_date'] ?? 'N/A',
           'id': recommendedMoviesJsonResults[i]['id'],
         });
       }
@@ -118,7 +123,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
 
     // User Reviews
-    var userReviewResponse = await http.get(Uri.parse(ApiLink.movieReviewsUrl(widget.itemId.toString())));
+    var userReviewResponse = await http.get(Uri.parse(ApiLink.itemReviewsUrl(widget.itemId.toString(),'movie')));
     print('Response Status Code: ${userReviewResponse.statusCode}');
     if (userReviewResponse.statusCode == 200)
     {
@@ -146,7 +151,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     }
 
     // Movie Trailers
-    var movieTrailersResponse = await http.get(Uri.parse(ApiLink.movieTrailerUrl(widget.itemId.toString())));
+    var movieTrailersResponse = await http.get(Uri.parse(ApiLink.itemTrailerUrl(widget.itemId.toString(), 'movie')));
 
     if (movieTrailersResponse.statusCode == 200)
     {
@@ -162,7 +167,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           });
         }
       }
-      trailerList.add({'key': 'aJ0cZTcTh90'});
+      //trailerList.add({'key': 'aJ0cZTcTh90'});
     } 
     else
     {
@@ -175,6 +180,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: CustomNavigationBar(currentState: "MovieDetailsPage"),
       backgroundColor: const Color.fromRGBO(14, 14, 14, 1),
       body: FutureBuilder(
         future: movieDetails(),
@@ -195,20 +201,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                     iconSize: 28,
                     color: Colors.white,
                   ),
-                  actions: [
-                    IconButton(
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomePage()),
-                        (route) => false
-                      );
-                    },
-                    icon: Icon(Icons.home_filled),
-                    iconSize: 28,
-                    color: Colors.white,
-                    )
-                  ],
                   backgroundColor: Color.fromRGBO(18, 18, 18, 0.5),
                   centerTitle: false,
                   pinned: true,
@@ -218,7 +210,15 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                     collapseMode: CollapseMode.parallax,
                     background: FittedBox(
                       fit: BoxFit.fill,
-                      child: WatchTrailer(trailerList[0]['key']), //Text(trailerList.isNotEmpty.toString()),//
+                      child: trailerList.isNotEmpty
+                        ? WatchTrailer(trailerList[0]['key'])
+                        : itemDetails[0]['backdrop_path'] != null ?
+                        Image.network(
+                            // Use the backdrop_path if trailerList is empty
+                            '${ApiConstants.baseImageUrl}${itemDetails[0]['backdrop_path']}',
+                            fit: BoxFit.cover,
+                          )
+                        : Image.asset('assets/images/default_backdrop.jpg')
                     ),
                   ),
                 ),
@@ -227,6 +227,37 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                   delegate: SliverChildListDelegate([
                     Column(
                       children: [
+                        // Title
+                        Container(
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(itemDetails[0]['title']),
+                                IconButton(
+                                  onPressed: () {
+                                    shareItem();
+                                  },
+                                  icon: Icon(Icons.share),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        
+                        // Add to list Buttons
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            ListActionButton("Add to Watch List", Icons.add, () {
+                              addToWatchList(widget.itemId);
+                            }),
+                            ListActionButton("Add to Watched List", Icons.add, () {
+                              addToWatchedList(widget.itemId);
+                            }),
+                          ]
+                        ),
                         // Display Genres
                         Row(
                           children: [
@@ -332,5 +363,28 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
         }
       ),
     );
+  }
+
+  void shareItem() {
+    final url = 'https://www.themoviedb.org/movie/${widget.itemId}';
+    
+    // Detect the platform
+    final platform = html.window.navigator.platform;
+    final clipboard = html.window.navigator.clipboard;
+    
+    if (platform != null && clipboard != null && (platform.startsWith('Mac') ||
+        platform.startsWith('Win') ||
+        platform.startsWith('Linux'))) {
+      // If running on a desktop platform and clipboard is supported, copy the URL to the clipboard
+      clipboard.writeText(url).then((_) {
+        html.window.alert('Movie URL copied to clipboard: $url');
+      }).catchError((error) {
+        print('Failed to copy to clipboard: $error');
+        html.window.alert('To share this movie, copy this URL: $url');
+      });
+    } else {
+      // If running on a mobile platform or clipboard is not supported, use the share_plus package
+      Share.share('Check out this movie on TMDB: $url');
+    }
   }
 }

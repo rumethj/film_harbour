@@ -1,13 +1,13 @@
 import 'package:film_harbour/api_key/api_constants.dart';
+import 'package:film_harbour/details_page/checker.dart';
+import 'package:film_harbour/home_page/tab_page/tab_page.dart';
+import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
 import "package:flutter/material.dart";
 import 'package:film_harbour/api_key/api_links.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:film_harbour/home_page/tab_page/popular.dart';
-import 'package:film_harbour/home_page/tab_page/upcoming.dart';
-import 'package:film_harbour/home_page/tab_page/top_grossing.dart';
 
 class HomePage extends StatefulWidget
 {
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 
   List<Map<String, dynamic>> trendingList = [];
 
-  Future<void> trendinglisthome() async
+  Future<void> trendingListFunction() async
   {
 
     if (uSelection == 'movie')
@@ -59,17 +59,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
       {
         
         var tempData = jsonDecode(trendingTvResponse.body);
-        var trendingMovieJson = tempData['results'];
+        var trendingTvJson = tempData['results'];
         
-        for (var i = 0; i< trendingMovieJson.length; i++)
+        for (var i = 0; i< trendingTvJson.length; i++)
         {
           print("Enter");
           trendingList.add({
-            'id': trendingMovieJson[i]['id'],
-            'title': trendingMovieJson[i]['name'],
-            'poster_path': trendingMovieJson[i]['poster_path'],
-            'vote_average': trendingMovieJson[i]['vote_average'],
-            'media_type': trendingMovieJson[i]['media_type'],
+            'id': trendingTvJson[i]['id'],
+            'title': trendingTvJson[i]['name'],
+            'poster_path': trendingTvJson[i]['poster_path'],
+            'vote_average': trendingTvJson[i]['vote_average'],
+            'media_type': trendingTvJson[i]['media_type'],
             'indexno': i,
           });
         }
@@ -87,9 +87,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
   Widget build(BuildContext context)
   {
     print('Parent Widget Rebuilt with userSelection: $uSelection');
-    TabController _tabController = TabController(length: 3, vsync: this);
+    TabController _tabController = TabController(length: 7, vsync: this);
 
     return Scaffold(
+      bottomNavigationBar: CustomNavigationBar(currentState: "HomePage"),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -100,7 +101,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.parallax,
               background: FutureBuilder(
-                future: trendinglisthome(),
+                future: trendingListFunction(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done){
                     return CarouselSlider(
@@ -110,11 +111,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                           autoPlayInterval: Duration(seconds:3),
                           height: MediaQuery.of(context).size.height),
                           items: trendingList.map((i){
+                            int index = trendingList.indexOf(i); // Get the index of the current item
                             return Builder(builder: (BuildContext context){
                               return GestureDetector(
-                                onTap: () {},
-                                child: GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) => DescriptionCheckUi(trendingList[index]['id'], uSelection)));
+                                  },
                                   child: Container(
                                     width: MediaQuery.of(context).size.width,
                                     margin: EdgeInsets.symmetric(horizontal: 5.0), // need adjustments
@@ -153,7 +155,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                                       ),
                                     ),
                                   ),
-                                ),
                               );
                             });
                           }).toList(),
@@ -172,7 +173,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
             ),
 
             title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Trending',
                   style:TextStyle(
@@ -209,7 +210,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                           items: [
                             DropdownMenuItem(
                               child: Text(
-                                'Movie',
+                                'Movies',
                                 style: TextStyle(
                                   decoration: TextDecoration.none,
                                   color: Colors.white,
@@ -239,37 +240,63 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 
           SliverList(
             delegate: SliverChildListDelegate([
+              
               // Search Bar
               SearchBarNew(),
 
               // Tab Bar
               Container(
-                  height: 45,
+                  height: 50,
                   width: MediaQuery.of(context).size.width,
                   child: TabBar(
                     controller: _tabController,
                     physics: BouncingScrollPhysics(),
-                    labelPadding: EdgeInsets.symmetric(horizontal: 25),
                     isScrollable: true,
                     indicator: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       color: Colors.amber.withOpacity(0.4),
                     ),
-                    tabs: [
-                      Tab(child: Text('Popular')),
-                      Tab(child: Text('Upcoming')),
-                      Tab(child: Text('TopGrossing')),
+                    tabs: const [
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Discover'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Popular'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Upcoming'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Top Grossing'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Showing Now'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('For Kids'))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Best of the Year'))),
                     ],
+                    padding: EdgeInsets.only(bottom: 16.0),
                   ),
+                  
               ),
+              
               Container(
                 height: 1050,
                 child: TabBarView(
                   controller: _tabController,
                   children: [
-                    Popular(uSelection: uSelection), // use parameters to define tv shows or movies
-                    Upcoming(uSelection: uSelection),
-                    TopGrossing(uSelection: uSelection),
+                    // use parameters to define tv shows or movies
+                    TabPage(uSelection: uSelection, tabCategory:'discover' ),
+                    TabPage(uSelection: uSelection, tabCategory:'popular' ),
+                    TabPage(uSelection: uSelection, tabCategory:'upcoming' ),
+                    TabPage(uSelection: uSelection, tabCategory:'topGrossing' ),
+                    TabPage(uSelection: uSelection, tabCategory:'showingNow' ),
+                    TabPage(uSelection: uSelection, tabCategory:'forKids' ),
+                    TabPage(uSelection: uSelection, tabCategory:'yearBest' ),
                   ],
                 ),
               ),
@@ -282,9 +309,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 
 
   // Update userSelection and trigger a rebuild of the Popular widget
-  void updateUserSelection(String newSelection) {
+  void updateUserSelection(String newItemSelection) {
     setState(() {
-      uSelection = newSelection;
+      uSelection = newItemSelection;
     });
     // Now, the Popular widget will be rebuilt with the updated userSelection
   }

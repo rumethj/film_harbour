@@ -1,5 +1,6 @@
 import 'package:film_harbour/home_page/home_page.dart';
 import 'package:film_harbour/sign_up_page.dart';
+import 'package:film_harbour/user_lists_page/user_lists_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -25,9 +26,10 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      title: "flutter Demo",
+      title: "Film Harbour",
       home: HomePage(),
       //home: SignUp(),
+      //home: UserListsPage(),
     );
   }
 }

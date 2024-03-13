@@ -18,11 +18,13 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
             itemBuilder: (context, index) {
               return GestureDetector(
                   onTap: () {
-                      // print(firstlistname[index]['id']);
+                      print("${itemList[index]['id']}, $itemType");
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => DescriptionCheckUi(itemList[index]['id'], itemType)
+                              builder: (context) => DescriptionCheckUi(
+                                itemList[index]['id'], 
+                                itemType,)
                           ));
                   },
                   child: Container(
@@ -32,7 +34,9 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
                               colorFilter: ColorFilter.mode(
                                   Colors.black.withOpacity(0.3),
                                   BlendMode.darken),
-                              image: NetworkImage('${ApiConstants.baseImageUrl}${itemList[index]['poster_path']}'),
+                              image: itemList[index]['poster_path'] != null
+                                  ? NetworkImage('${ApiConstants.baseImageUrl}${itemList[index]['poster_path']}') as ImageProvider
+                                  : AssetImage('assets/images/default_poster.jpg')  as ImageProvider,
                               fit: BoxFit.cover)),
                       margin: EdgeInsets.only(left: 13),
                       width: 170,

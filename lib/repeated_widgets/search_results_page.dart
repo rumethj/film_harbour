@@ -117,73 +117,75 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               itemBuilder: (context, index) {
                 // Result items
                 return Card(
-  elevation: 4,
-  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-  child: InkWell(
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DescriptionCheckUi(
-            searchResult[index]['id'],
-            searchResult[index]['media_type'],
-          ),
-        ),
-      );
-    },
-    child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Movie Poster
-          Container(
-            width: 80,
-            height: 120,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: DecorationImage(
-                image: NetworkImage(
-                  '${ApiConstants.baseImageUrl}${searchResult[index]['poster_path']}',
-                ),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Movie Title
-                Text(
-                  searchResult[index]['title'],
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                  elevation: 4,
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DescriptionCheckUi(
+                            searchResult[index]['id'],
+                            searchResult[index]['media_type'],
+                          ),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Movie Poster
+                          Container(
+                            width: 80,
+                            height: 120,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: NetworkImage(
+                                  '${ApiConstants.baseImageUrl}${searchResult[index]['poster_path']}',
+                                ),
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Movie Title
+                                Text(
+                                  searchResult[index]['title'],
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                SizedBox(height: 5),
+                                // Movie Overview
+                                Text(
+                                  'Overview: ${searchResult[index]['overview']}',
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                SizedBox(height: 5),
+                                // Movie Popularity
+                                Text('Popularity: ${searchResult[index]['popularity']}'),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-                SizedBox(height: 5),
-                // Movie Overview
-                Text(
-                  'Overview: ${searchResult[index]['overview']}',
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                SizedBox(height: 5),
-                // Movie Popularity
-                Text('Popularity: ${searchResult[index]['popularity']}'),
-              ],
-            ),
-          ),
-        ],
-      ),
-    ),
-  ),
-);
+                );
               },
             );
-          } else {
+          } 
+          else 
+          {
             return Center(
               child: CircularProgressIndicator(
                 color: Colors.amber,

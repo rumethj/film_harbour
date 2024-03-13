@@ -32,7 +32,7 @@ class _DescriptionCheckUiState extends State<DescriptionCheckUi> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return checkType();
   }
 }
 
