@@ -3,6 +3,7 @@ import 'package:film_harbour/details_page/checker.dart';
 import 'package:film_harbour/home_page/tab_page/tab_page.dart';
 import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
+import 'package:film_harbour/utils/network/network_utils.dart';
 import "package:flutter/material.dart";
 import 'package:film_harbour/api_key/api_links.dart';
 import 'package:http/http.dart' as http;
@@ -82,6 +83,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
 
   // Movie/Tv Selector
   String uSelection = 'movie';
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity(context); // Call checkConnectivity when the widget is initialized
+  }
 
   @override
   Widget build(BuildContext context)

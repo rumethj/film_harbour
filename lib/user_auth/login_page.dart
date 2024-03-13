@@ -1,63 +1,64 @@
-import 'package:film_harbour/login_page.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:film_harbour/user_auth/forgot_password_page.dart';
+//import 'package:film_harbour/service/auth.dart';
 import 'package:film_harbour/home_page/home_page.dart';
+import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:film_harbour/user_auth/sign_up_page.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class LogInPage extends StatefulWidget {
+  const LogInPage({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<LogInPage> createState() => _LogInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _LogInPageState extends State<LogInPage> {
   String email = "";
   String password = "";
-  String name = "";
-  TextEditingController nameTextController = new TextEditingController();
-  TextEditingController passwordTextController = new TextEditingController();
+
   TextEditingController emailTextController = new TextEditingController();
+  TextEditingController passwordTextController = new TextEditingController();
 
-  final _formKey = GlobalKey<FormState>(); // Used for validation
+  final _formKey = GlobalKey<FormState>();
 
-  RegisterUser() async {
-    if (password != null && nameTextController.text!=""&& emailTextController.text!="") 
+  LoginUser() async {
+    try 
     {
-      try 
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+    } 
+    on FirebaseAuthException catch (e) 
+    {
+      if (e.code == 'user-not-found') 
       {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.orangeAccent,
             content: Text(
-          "Registered Successfully",
-          style: TextStyle(fontSize: 20.0),
-        )));
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+              "No User Found for that Email",
+              style: TextStyle(fontSize: 18.0),
+            )));
       } 
-      on FirebaseAuthException catch (e) 
+      else if (e.code == 'wrong-password') 
       {
-        if (e.code == 'weak-password') 
-        {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Password Provided is too Weak",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        } 
-        else if (e.code == "email-already-in-use") 
-        {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Account Already exists",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.orangeAccent,
+            content: Text(
+              "Wrong Password Provided by User",
+              style: TextStyle(fontSize: 18.0),
+            )));
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity(context); // Call checkConnectivity when the widget is initialized
   }
 
   @override
@@ -87,29 +88,6 @@ class _SignUpPageState extends State<SignUpPage> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 30.0),
-                              decoration: BoxDecoration(
-                                  color: Color(0xFFedf0f8),
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Name';
-                                  }
-                                  return null;
-                                },
-                                controller: nameTextController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Name",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFFb2b7bf),
-                                        fontSize: 18.0)),
-                              ),
-                            ),
-                            SizedBox(height: 30.0),
                             Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
@@ -161,12 +139,11 @@ class _SignUpPageState extends State<SignUpPage> {
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
-                                    name= nameTextController.text;
                                     email = emailTextController.text;
                                     password = passwordTextController.text;
                                   });
                                 }
-                                RegisterUser();
+                                LoginUser();
                               },
                               child: Container(
                                 width: MediaQuery.of(context).size.width,
@@ -177,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     borderRadius: BorderRadius.circular(30)),
                                 child: Center(
                                   child: Text(
-                                    "Sign Up",
+                                    "Log In",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 22.0,
@@ -186,7 +163,22 @@ class _SignUpPageState extends State<SignUpPage> {
                                 ),
                               ),
                             ),
-                            
+                            SizedBox(height: 15.0),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ForgotPasswordPage()));
+                              },
+                              child: Text(
+                                "Forgot Password?",
+                                style: TextStyle(
+                                    color: Color(0xFF8c8e98),
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                            ),
                             SizedBox(height: 80.0),
 
                           ],
@@ -205,7 +197,7 @@ class _SignUpPageState extends State<SignUpPage> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  "Already have an account?",
+                  "Don't have an account?",
                   style: TextStyle(
                       color: Color(0xFF8c8e98),
                       fontSize: 18.0,
@@ -215,10 +207,10 @@ class _SignUpPageState extends State<SignUpPage> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LogInPage()));
+                        MaterialPageRoute(builder: (context) => SignUpPage()));
                   },
                   child: Text(
-                    "Log In",
+                    "Sign Up",
                     style: TextStyle(
                         color: Color(0xFF273671),
                         fontSize: 20.0,

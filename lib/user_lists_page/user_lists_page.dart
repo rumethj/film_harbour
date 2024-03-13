@@ -4,6 +4,7 @@ import 'package:film_harbour/api_key/api_links.dart';
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/user_list_action.dart';
+import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -128,6 +129,12 @@ class _UserListsPageState extends State<UserListsPage> {
 
   // watch/watched selector
   String uSelection = 'watch';
+
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity(context); // Call checkConnectivity when the widget is initialized
+  }
 
   @override
   Widget build(BuildContext context)

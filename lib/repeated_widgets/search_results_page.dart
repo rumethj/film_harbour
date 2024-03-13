@@ -1,5 +1,6 @@
 import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
+import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:http/http.dart' as http;
@@ -100,6 +101,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
     super.initState();
     searchText.text = widget.searchQuery;
     SearchList(widget.searchQuery);
+    checkConnectivity(context); // Call checkConnectivity when the widget is initialized
   }
 
   @override

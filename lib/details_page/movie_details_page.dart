@@ -4,6 +4,7 @@ import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/item_slider.dart';
 import 'package:film_harbour/repeated_widgets/user_list_action.dart';
 import 'package:film_harbour/repeated_widgets/user_review_element.dart';
+import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/api_key/api_constants.dart';
 import 'package:flutter/services.dart';
@@ -173,8 +174,12 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     {
       print("Error: ${movieTrailersResponse.statusCode}:${movieTrailersResponse.reasonPhrase}");
     }
+  }
 
-    
+  @override
+  void initState() {
+    super.initState();
+    checkConnectivity(context); // Call checkConnectivity when the widget is initialized
   }
 
   @override
