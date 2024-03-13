@@ -1,4 +1,5 @@
 import 'package:film_harbour/home_page/home_page.dart';
+import 'package:film_harbour/login_page.dart';
 import 'package:film_harbour/sign_up_page.dart';
 import 'package:film_harbour/user_lists_page/user_lists_page.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       title: "Film Harbour",
-      home: HomePage(),
+      //home: HomePage(),
+      home: LogIn(),
       //home: SignUp(),
       //home: UserListsPage(),
     );

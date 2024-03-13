@@ -15,14 +15,15 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
-  String email = "", password = "";
+  String email = "";
+  String password = "";
 
-  TextEditingController mailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
+  TextEditingController mailTextController = new TextEditingController();
+  TextEditingController passwordTextController = new TextEditingController();
 
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  userLogin() async {
+  LoginUser() async {
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
@@ -65,7 +66,7 @@ class _LogInState extends State<LogIn> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(
                   children: [
                     Container(
@@ -77,11 +78,11 @@ class _LogInState extends State<LogIn> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please Enter E-mail';
+                            return 'Please Enter Email';
                           }
                           return null;
                         },
-                        controller: mailcontroller,
+                        controller: mailTextController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Email",
@@ -99,7 +100,7 @@ class _LogInState extends State<LogIn> {
                           color: Color(0xFFedf0f8),
                           borderRadius: BorderRadius.circular(30)),
                       child: TextFormField(
-                        controller: passwordcontroller,
+                        controller: passwordTextController,
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please Enter Password';
@@ -118,13 +119,13 @@ class _LogInState extends State<LogIn> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        if(_formkey.currentState!.validate()){
+                        if(_formKey.currentState!.validate()){
                           setState(() {
-                            email= mailcontroller.text;
-                            password=passwordcontroller.text;
+                            email= mailTextController.text;
+                            password=passwordTextController.text;
                           });
                         }
-                        userLogin();
+                        LoginUser();
                       },
                       child: Container(
                           width: MediaQuery.of(context).size.width,
@@ -162,46 +163,46 @@ class _LogInState extends State<LogIn> {
             SizedBox(
               height: 40.0,
             ),
-            Text(
-              "or LogIn with",
-              style: TextStyle(
-                  color: Color(0xFF273671),
-                  fontSize: 22.0,
-                  fontWeight: FontWeight.w500),
-            ),
-            SizedBox(
-              height: 30.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    // AuthMethods().signInWithGoogle(context); //AUTH
-                  },
-                  child: Image.asset(
-                    "images/google.png",
-                    height: 45,
-                    width: 45,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(
-                  width: 30.0,
-                ),
-                GestureDetector(
-                  onTap: (){
-                    // AuthMethods().signInWithApple(); //AUTH
-                  },
-                  child: Image.asset(
-                    "images/apple1.png",
-                    height: 50,
-                    width: 50,
-                    fit: BoxFit.cover,
-                  ),
-                )
-              ],
-            ),
+            // Text(
+            //   "or LogIn with",
+            //   style: TextStyle(
+            //       color: Color(0xFF273671),
+            //       fontSize: 22.0,
+            //       fontWeight: FontWeight.w500),
+            // ),
+            // SizedBox(
+            //   height: 30.0,
+            // ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: [
+            //     GestureDetector(
+            //       onTap: (){
+            //         // AuthMethods().signInWithGoogle(context); //AUTH
+            //       },
+            //       child: Image.asset(
+            //         "images/google.png",
+            //         height: 45,
+            //         width: 45,
+            //         fit: BoxFit.cover,
+            //       ),
+            //     ),
+            //     SizedBox(
+            //       width: 30.0,
+            //     ),
+            //     GestureDetector(
+            //       onTap: (){
+            //         // AuthMethods().signInWithApple(); //AUTH
+            //       },
+            //       child: Image.asset(
+            //         "images/apple1.png",
+            //         height: 50,
+            //         width: 50,
+            //         fit: BoxFit.cover,
+            //       ),
+            //     )
+            //   ],
+            // ),
             SizedBox(
               height: 40.0,
             ),
@@ -222,7 +223,7 @@ class _LogInState extends State<LogIn> {
                         MaterialPageRoute(builder: (context) => SignUp()));
                   },
                   child: Text(
-                    "SignUp",
+                    "Sign Up",
                     style: TextStyle(
                         color: Color(0xFF273671),
                         fontSize: 20.0,

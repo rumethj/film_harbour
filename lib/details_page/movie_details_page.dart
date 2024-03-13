@@ -6,12 +6,12 @@ import 'package:film_harbour/repeated_widgets/user_list_action.dart';
 import 'package:film_harbour/repeated_widgets/user_review_element.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/api_key/api_constants.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:film_harbour/repeated_widgets/trailer_element.dart';
 import 'package:share_plus/share_plus.dart';
-import 'dart:html' as html;
 
 
 class MovieDetailsPage extends StatefulWidget {
@@ -365,26 +365,29 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     );
   }
 
-  void shareItem() {
-    final url = 'https://www.themoviedb.org/movie/${widget.itemId}';
-    
-    // Detect the platform
-    final platform = html.window.navigator.platform;
-    final clipboard = html.window.navigator.clipboard;
-    
-    if (platform != null && clipboard != null && (platform.startsWith('Mac') ||
-        platform.startsWith('Win') ||
-        platform.startsWith('Linux'))) {
-      // If running on a desktop platform and clipboard is supported, copy the URL to the clipboard
-      clipboard.writeText(url).then((_) {
-        html.window.alert('Movie URL copied to clipboard: $url');
-      }).catchError((error) {
-        print('Failed to copy to clipboard: $error');
-        html.window.alert('To share this movie, copy this URL: $url');
-      });
-    } else {
-      // If running on a mobile platform or clipboard is not supported, use the share_plus package
-      Share.share('Check out this movie on TMDB: $url');
-    }
+  void shareItem() async {
+  final url = 'https://www.themoviedb.org/movie/${widget.itemId}';
+  
+  try {
+    // Attempt to copy the URL to the clipboard
+    await Clipboard.setData(ClipboardData(text: url));
+    // If successful, show a success message
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text('Success'),
+        content: Text('Movie URL copied to clipboard: $url'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text('OK'),
+          ),
+        ],
+      ),
+    );
+  } catch (e) {
+    // If copying to clipboard fails, fall back to sharing using share_plus package
+    Share.share('Check out this movie on TMDB: $url');
   }
+}
 }

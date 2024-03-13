@@ -24,18 +24,6 @@ class _UserListsPageState extends State<UserListsPage> {
     if (uSelection == 'watch')
     {
       List<int> watchList = await readWatchList();
-      watchList.add(
-        1096197
-      );
-      watchList.add(
-        932420
-      );
-      watchList.add(
-        792307
-      );
-      watchList.add(
-        969492
-      );
       for (int i = 0; i < watchList.length; i++)
       {
         var movieDetailsResponse = await http.get(Uri.parse(ApiLink.itemDetailsUrl(watchList[i].toString(), 'movie')));
@@ -87,7 +75,54 @@ class _UserListsPageState extends State<UserListsPage> {
     }
     else if (uSelection == 'watched')
     {
+      List<int> watchedList = await readWatchedList();
+      for (int i = 0; i < watchedList.length; i++)
+      {
+        var movieDetailsResponse = await http.get(Uri.parse(ApiLink.itemDetailsUrl(watchedList[i].toString(), 'movie')));
+        print('Response Status Code: ${movieDetailsResponse.statusCode}');
+        if (movieDetailsResponse.statusCode == 200)
+        {
+            
+          //var tempData = jsonDecode(movieDetailsResponse.body);
+          var movieDetailsJsonResults = jsonDecode(movieDetailsResponse.body);
 
+            userList.add({
+              'id': watchedList[i],
+              'backdrop_path': movieDetailsJsonResults['backdrop_path'],
+              'title': movieDetailsJsonResults['title'],
+              'poster_path': movieDetailsJsonResults['poster_path'],
+              'vote_average': movieDetailsJsonResults['vote_average'] ?? 'N/A',
+              'date': movieDetailsJsonResults['release_date'] ?? 'N/A',
+              'media_type': 'movie',
+            });
+        } 
+        else
+        {
+          var tvDetailsResponse = await http.get(Uri.parse(ApiLink.itemDetailsUrl(watchedList[i].toString(), 'tv')));
+          print('Response Status Code: ${tvDetailsResponse.statusCode}');
+          if (tvDetailsResponse.statusCode == 200)
+          {
+              
+            //var tempData = jsonDecode(tvDetailsResponse.body);
+            var tvDetailsJsonResults = jsonDecode(tvDetailsResponse.body);
+
+              userList.add({
+                'id': watchedList[i],
+                'backdrop_path': tvDetailsJsonResults['backdrop_path'],
+                'title': tvDetailsJsonResults['name'],
+                'poster_path': tvDetailsJsonResults['poster_path'],
+                'vote_average': tvDetailsJsonResults['vote_average'] ?? 'N/A',
+                'date': tvDetailsJsonResults['release_date'] ?? 'N/A',
+                'media_type': 'tv',
+              });
+          } 
+          else
+          {
+            print("Error: ${tvDetailsResponse.statusCode}:${tvDetailsResponse.reasonPhrase}");
+          }
+        }
+
+      }
     }
   }
 

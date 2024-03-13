@@ -14,14 +14,14 @@ class _SignUpState extends State<SignUp> {
   String email = "";
   String password = "";
   String name = "";
-  TextEditingController nameController = new TextEditingController();
-  TextEditingController passwordController = new TextEditingController();
-  TextEditingController mailController = new TextEditingController();
+  TextEditingController nameTextController = new TextEditingController();
+  TextEditingController passwordTextController = new TextEditingController();
+  TextEditingController emailTextController = new TextEditingController();
 
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>(); // Used for validation
 
-  registration() async {
-    if (password != null&& nameController.text!=""&& mailController.text!="") {
+  RegisterUser() async {
+    if (password != null && nameTextController.text!=""&& emailTextController.text!="") {
       try {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
@@ -72,7 +72,7 @@ class _SignUpState extends State<SignUp> {
             Padding(
               padding: const EdgeInsets.only(left: 20.0, right: 20.0),
               child: Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(
                   children: [
                     Container(
@@ -88,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                           }
                           return null;
                         },
-                        controller: nameController,
+                        controller: nameTextController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Name",
@@ -112,7 +112,7 @@ class _SignUpState extends State<SignUp> {
                           }
                           return null;
                         },
-                        controller: mailController,
+                        controller: emailTextController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: "Email",
@@ -136,7 +136,7 @@ class _SignUpState extends State<SignUp> {
                           }
                           return null;
                         },
-                        controller: passwordController,
+                        controller: passwordTextController,
                         decoration: InputDecoration(
                             border: InputBorder.none,
                             
@@ -148,17 +148,20 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 30.0,
                     ),
+
+                    // Sign up button
                     GestureDetector(
                       onTap: (){
-                        if(_formkey.currentState!.validate()){
+                        if(_formKey.currentState!.validate()){
                           setState(() {
-                            email=mailController.text;
-                            name= nameController.text;
-                            password=passwordController.text;
+                            email=emailTextController.text;
+                            name= nameTextController.text;
+                            password=passwordTextController.text;
                           });
                         }
-                        registration();
+                        RegisterUser();
                       },
+                      
                       child: Container(
                           width: MediaQuery.of(context).size.width,
                           padding: EdgeInsets.symmetric(
@@ -183,7 +186,7 @@ class _SignUpState extends State<SignUp> {
               height: 40.0,
             ),
             Text(
-              "or LogIn with",
+              "or Log In with",
               style: TextStyle(
                   color: Color(0xFF273671),
                   fontSize: 22.0,
@@ -232,7 +235,7 @@ class _SignUpState extends State<SignUp> {
                         MaterialPageRoute(builder: (context) => LogIn()));
                   },
                   child: Text(
-                    "LogIn",
+                    "Log In",
                     style: TextStyle(
                         color: Color(0xFF273671),
                         fontSize: 20.0,

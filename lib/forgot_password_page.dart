@@ -11,11 +11,11 @@ class ForgotPassword extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPassword> {
   String email = "";
-  TextEditingController mailcontroller = new TextEditingController();
+  TextEditingController mailTextController = new TextEditingController();
 
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-  resetPassword() async {
+  resetUserPassword() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -66,7 +66,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
             ),
             Expanded(
                 child: Form(
-                    key: _formkey,
+                    key: _formKey,
                     child: Padding(
                       padding: EdgeInsets.only(left: 10.0),
                       child: ListView(
@@ -85,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                 }
                                 return null;
                               },
-                              controller: mailcontroller,
+                              controller: mailTextController,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                   hintText: "Email",
@@ -104,11 +104,11 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              if(_formkey.currentState!.validate()){
+                              if(_formKey.currentState!.validate()){
                                 setState(() {
-                                  email=mailcontroller.text;
+                                  email=mailTextController.text;
                                 });
-                                resetPassword();
+                                resetUserPassword();
                               }
                             },
                             child: Container(
