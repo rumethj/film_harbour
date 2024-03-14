@@ -4,7 +4,6 @@ import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -16,15 +15,13 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
   String email = "";
   String password = "";
-  String name = "";
-  TextEditingController nameTextController = new TextEditingController();
-  TextEditingController passwordTextController = new TextEditingController();
-  TextEditingController emailTextController = new TextEditingController();
+  TextEditingController passwordTextController =  TextEditingController();
+  TextEditingController emailTextController =  TextEditingController();
 
   final _formKey = GlobalKey<FormState>(); // Used for validation
 
   RegisterUser() async {
-    if (password != null && nameTextController.text!=""&& emailTextController.text!="") 
+    if (password != "" && emailTextController.text!="") 
     {
       try 
       {
@@ -38,15 +35,15 @@ class _SignUpPageState extends State<SignUpPage> {
         )));
         // ignore: use_build_context_synchronously
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+            context, MaterialPageRoute(builder: (context) => const HomePage()));
       } 
       on FirebaseAuthException catch (e) 
       {
         if (e.code == 'weak-password') 
         {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
+              backgroundColor: CustomTheme.mainPalletDarkRed,
+              content: const Text(
                 "Password Provided is too Weak",
                 style: TextStyle(fontSize: 18.0),
               )));
@@ -97,33 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: Column(
                           children: [
                             Container(
-                              padding: EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 30.0),
-                              decoration: BoxDecoration(
-                                  color: CustomTheme.mainPalletBlue,
-                                  borderRadius: BorderRadius.circular(30)),
-                              child: TextFormField(
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please Enter Name';
-                                  }
-                                  return null;
-                                },
-                                controller: nameTextController,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "Name",
-                                    hintStyle: Theme.of(context).textTheme.labelLarge,
-                                    prefixIcon: Icon(
-                                    Icons.person,
-                                    size: 30.0,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 30.0),
-                            Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
                               decoration: BoxDecoration(
                                   color: CustomTheme.mainPalletBlue,
@@ -140,21 +111,22 @@ class _SignUpPageState extends State<SignUpPage> {
                                     border: InputBorder.none,
                                     hintText: "Email",
                                     hintStyle: Theme.of(context).textTheme.labelLarge,
-                                    prefixIcon: Icon(
+                                    prefixIcon: const Icon(
                                     Icons.email,
                                     size: 30.0,
                                   ),
                                     ),
                               )
                             ),
-                            SizedBox(height: 30.0),
+                            const SizedBox(height: 30.0),
                             Container(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
                               decoration: BoxDecoration(
                                   color: CustomTheme.mainPalletBlue,
                                   borderRadius: BorderRadius.circular(30)),
                               child: TextFormField(
+                                key: Key('password_field'), // use for unit testing
                                 controller: passwordTextController,
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
@@ -166,12 +138,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                     border: InputBorder.none,
                                     hintText: "Password",
                                     hintStyle: Theme.of(context).textTheme.labelLarge,
-                                    prefixIcon: Icon(
-                                    Icons.password,
+                                    prefixIcon: const Icon(
+                                    Icons.lock,
                                     size: 30.0,
                                     
                                   ),
-                              ),
+                                ),
                                 obscureText: true,
 
                               )
@@ -181,7 +153,6 @@ class _SignUpPageState extends State<SignUpPage> {
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
                                   setState(() {
-                                    name= nameTextController.text;
                                     email = emailTextController.text;
                                     password = passwordTextController.text;
                                   });

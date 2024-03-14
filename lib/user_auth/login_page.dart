@@ -20,8 +20,8 @@ class _LogInPageState extends State<LogInPage> {
   String email = "";
   String password = "";
 
-  TextEditingController emailTextController = new TextEditingController();
-  TextEditingController passwordTextController = new TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
+  TextEditingController passwordTextController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -33,7 +33,8 @@ class _LogInPageState extends State<LogInPage> {
     } 
     on FirebaseAuthException catch (e) 
     {
-      if (e.code == 'user-not-found') 
+      print("errorcode: ${e.code}");
+      if (e.code == 'invalid-credential') 
       {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -53,6 +54,16 @@ class _LogInPageState extends State<LogInPage> {
               style: Theme.of(context).textTheme.labelSmall,
             )));
       }
+      if (e.code == 'too-many-requests') 
+      {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: CustomTheme.mainPalletDarkRed,
+            content: Text(
+              "Too many attempts. Change password or try again later.",
+              style: Theme.of(context).textTheme.labelSmall,
+            )));
+      } 
     }
   }
 
@@ -132,7 +143,7 @@ class _LogInPageState extends State<LogInPage> {
                                     hintText: "Password",
                                     hintStyle: Theme.of(context).textTheme.labelLarge,
                                     prefixIcon: Icon(
-                                    Icons.password,
+                                    Icons.lock,
                                     size: 30.0,
                                   ),),
                                     

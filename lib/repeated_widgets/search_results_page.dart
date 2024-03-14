@@ -1,13 +1,10 @@
-import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
-import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:http/http.dart' as http;
 import 'package:film_harbour/api_key/api_constants.dart';
 import 'package:film_harbour/api_key/api_links.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:convert';
 
 class SearchResultsPage extends StatefulWidget {
@@ -109,7 +106,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: SearchBarNew()
+        title: const SearchBarNew()
       ),
       body: FutureBuilder(
         future: SearchList(searchText.text),
@@ -121,7 +118,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                 // Result items
                 return Card(
                   elevation: 0,
-                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 1),
+                  margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -189,7 +186,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           } 
           else 
           {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
               ),
             );

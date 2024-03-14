@@ -1,6 +1,5 @@
 import 'package:film_harbour/api_key/api_constants.dart';
 import 'package:film_harbour/details_page/checker.dart';
-import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:flutter/material.dart';
 
 Widget SliderList(List itemList, String title, String itemType, int itemCount)
@@ -36,7 +35,7 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
                                   BlendMode.darken),
                               image: itemList[index]['poster_path'] != null
                                   ? NetworkImage('${ApiConstants.baseImageUrl}${itemList[index]['poster_path']}') as ImageProvider
-                                  : AssetImage('assets/images/default_poster.jpg')  as ImageProvider,
+                                  : const AssetImage('assets/images/default_poster.jpg'),
                               fit: BoxFit.cover)),
                       margin: EdgeInsets.only(left: 13),
                       width: 170,
@@ -46,7 +45,10 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
                           children: [
                             Padding(
                                 padding: const EdgeInsets.only(bottom: 9, left: 12),
-                                child: Text(itemList[index]['release_date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,)),
+                                child: itemList[index]['release_date'].isNotEmpty
+                                ? Text(itemList[index]['release_date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,)
+                                : SizedBox.shrink(), 
+                            ),
                             Padding(
                                 padding:
                                     const EdgeInsets.only(bottom: 9, right: 12),

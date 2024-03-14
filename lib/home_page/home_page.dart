@@ -13,6 +13,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget
 {
+  static const String routeName = '/home';
   const HomePage({super.key});
 
   @override
@@ -80,8 +81,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
       }     
     }
 
-
-    
   }
 
   // Movie/Tv Selector
@@ -268,9 +267,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                       color: CustomTheme.mainPalletBlack,
                     ),
                     tabs: [
-                      Tab(child: Padding(
-                        padding: EdgeInsets.only(left:15.0, right: 15.0),
-                        child: Text('Discover', style: Theme.of(context).textTheme.titleLarge,))),
+                      
                       Tab(child: Padding(
                         padding: EdgeInsets.only(left:15.0, right: 15.0),
                         child: Text('Popular', style: Theme.of(context).textTheme.titleLarge,))),
@@ -289,6 +286,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                       Tab(child: Padding(
                         padding: EdgeInsets.only(left:15.0, right: 15.0),
                         child: Text('Best of the Year', style: Theme.of(context).textTheme.titleLarge,))),
+                      Tab(child: Padding(
+                        padding: EdgeInsets.only(left:15.0, right: 15.0),
+                        child: Text('Discover', style: Theme.of(context).textTheme.titleLarge,))),
                     ],
                     padding: EdgeInsets.only(bottom: 16.0),
                   ),
@@ -301,13 +301,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                   controller: _tabController,
                   children: [
                     // use parameters to define tv shows or movies
-                    TabPage(uSelection: uSelection, tabCategory:'discover' ),
                     TabPage(uSelection: uSelection, tabCategory:'popular' ),
                     TabPage(uSelection: uSelection, tabCategory:'upcoming' ),
                     TabPage(uSelection: uSelection, tabCategory:'topGrossing' ),
                     TabPage(uSelection: uSelection, tabCategory:'showingNow' ),
                     TabPage(uSelection: uSelection, tabCategory:'forKids' ),
                     TabPage(uSelection: uSelection, tabCategory:'yearBest' ),
+                    TabPage(uSelection: uSelection, tabCategory:'discover' ),
+
                   ],
                 ),
               ),

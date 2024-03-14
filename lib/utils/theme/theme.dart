@@ -4,13 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomTheme
 {
   CustomTheme._(); // Will not allow instance of this class
-  static var mainPalletBlack = Color.fromRGBO(12, 19, 26, 1);
-  static var mainPalletDarkBlue =Color.fromRGBO(16, 25, 35, 1);
-  static var mainPalletBlue =Color.fromRGBO(27, 42, 57, 1);
-  static var mainPalletDarkRed =Color.fromRGBO(166, 15, 48, 1);
-  static var mainPalletRed =Color.fromRGBO(227, 45, 86, 1);
-  static var mainPalletOffWhite =Color.fromRGBO(226, 209, 209, 1);
-  static var mainPalletWhite =Color.fromRGBO(255, 255, 255, 1);
+  static var mainPalletBlack = const Color.fromRGBO(12, 19, 26, 1);
+  static var mainPalletDarkBlue =const Color.fromRGBO(16, 25, 35, 1);
+  static var mainPalletBlue =const Color.fromRGBO(27, 42, 57, 1);
+  static var mainPalletDarkRed =const Color.fromRGBO(166, 15, 48, 1);
+  static var mainPalletRed =const Color.fromRGBO(227, 45, 86, 1);
+  static var mainPalletOffWhite =const Color.fromRGBO(226, 209, 209, 1);
+  static var mainPalletWhite =const Color.fromRGBO(255, 255, 255, 1);
 
   // Light Mode Theme
   static ThemeData lightTheme = ThemeData(
@@ -22,6 +22,7 @@ class CustomTheme
   static ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     
+    navigationBarTheme: NavigationBarThemeData(backgroundColor: mainPalletDarkBlue),
     
     iconTheme: IconThemeData(color:mainPalletRed ),
 
@@ -48,12 +49,12 @@ class CustomTheme
       // displaySmall:
       headlineLarge: GoogleFonts.cantarell(
         color: mainPalletOffWhite,
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
       headlineMedium: GoogleFonts.cantarell(
         color: mainPalletRed,
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: FontWeight.normal,
       ),
 

@@ -1,12 +1,5 @@
-import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:film_harbour/details_page/checker.dart';
-import 'package:http/http.dart' as http;
-import 'package:film_harbour/api_key/api_constants.dart';
-import 'package:film_harbour/api_key/api_links.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'dart:convert';
 import 'package:film_harbour/repeated_widgets/search_results_page.dart';
 
 class SearchBarNew extends StatefulWidget {

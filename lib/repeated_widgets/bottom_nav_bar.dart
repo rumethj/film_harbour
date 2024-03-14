@@ -17,7 +17,7 @@ class CustomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
             IconButton(
-              icon: Icon(Icons.list),
+              icon: const Icon(Icons.list),
               iconSize: 30,
               color: currentState == 'UserListsPage'
               ? CustomTheme.mainPalletRed
@@ -51,8 +51,8 @@ class CustomNavigationBar extends StatelessWidget {
               onPressed: currentState != 'HomePage'
               ? () {
                 Navigator.pushReplacement(
-                      context,
-                      PageRouteBuilder(
+                  context,
+                  PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) => HomePage(),
                         transitionsBuilder: (context, animation, secondaryAnimation, child) {
                           return SlideTransition(
@@ -64,13 +64,13 @@ class CustomNavigationBar extends StatelessWidget {
                           );
                         },
                       ),
-                    );
+                );
               }
               :() {
               }
             ),
             IconButton(
-              icon: Icon(Icons.logout),
+              icon: const Icon(Icons.logout),
               iconSize: 25,
               color: CustomTheme.mainPalletOffWhite,
               onPressed: () {

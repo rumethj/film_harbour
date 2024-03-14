@@ -1,4 +1,4 @@
-import 'package:film_harbour/user_auth/sign_up_page.dart';
+import 'package:film_harbour/user_auth/login_page.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -12,24 +12,28 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPasswordPage> {
   String email = "";
-  TextEditingController emailTextController = new TextEditingController();
+  TextEditingController emailTextController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   resetUserPassword() async {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: CustomTheme.mainPalletDarkRed,
           content: Text(
         "Password Reset Email has been sent !",
-        style: TextStyle(fontSize: 20.0),
+        style: Theme.of(context).textTheme.labelSmall,
       )));
     } on FirebaseAuthException catch (e) {
       if (e.code == "user-not-found") {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: CustomTheme.mainPalletDarkRed,
             content: Text(
           "No user found for that email.",
-          style: TextStyle(fontSize: 20.0),
+          style: Theme.of(context).textTheme.labelSmall,
         )));
       }
     }
@@ -140,7 +144,7 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Text(
-                                "Don't have an account?",
+                                "Done reseting your password?",
                                 style: Theme.of(context).textTheme.headlineLarge,),
                               SizedBox(
                                 width: 5.0,
@@ -150,10 +154,10 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => SignUpPage()));
+                                          builder: (context) => LogInPage()));
                                 },
                                 child: Text(
-                                  "Create",
+                                  "Log In",
                                   style: Theme.of(context).textTheme.headlineMedium)
                               )
                             ],

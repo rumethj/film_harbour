@@ -5,10 +5,10 @@ import 'package:film_harbour/details_page/movie_details_page.dart';
 
 class DescriptionCheckUi extends StatefulWidget {
 
-  var newId;
-  var newType;
+  final int newId;
+  final String newType;
   
-  DescriptionCheckUi(this.newId, this.newType);
+  const DescriptionCheckUi(this.newId, this.newType, {super.key});
 
   @override
   State<DescriptionCheckUi> createState() => _DescriptionCheckUiState();

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UserReview extends StatefulWidget {
   
-  List reviewDetails;
+  final List reviewDetails;
 
   UserReview(this.reviewDetails);
 

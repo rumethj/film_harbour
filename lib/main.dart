@@ -1,9 +1,4 @@
-import 'package:film_harbour/home_page/home_page.dart';
-import 'package:film_harbour/user_auth/forgot_password_page.dart';
 import 'package:film_harbour/user_auth/login_page.dart';
-import 'package:film_harbour/user_auth/sign_up_page.dart';
-import 'package:film_harbour/user_lists_page/user_lists_page.dart';
-import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -27,10 +22,10 @@ class MyApp extends StatelessWidget {
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
       themeMode: ThemeMode.dark,
-      
+
       debugShowCheckedModeBanner: false,
       title: "Film Harbour",
-      home: HomePage()
+      home: const LogInPage(),
     );
   }
 }

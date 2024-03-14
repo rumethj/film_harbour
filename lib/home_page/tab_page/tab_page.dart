@@ -1,5 +1,4 @@
 import 'package:film_harbour/details_page/checker.dart';
-import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -290,7 +289,9 @@ class _TabPageState extends State<TabPage> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
                             image: DecorationImage(
-                              image: NetworkImage('${ApiConstants.baseImageUrl}${itemList[index]['poster_path']}'),
+                              image: itemList[index]['poster_path'] != null
+                              ? NetworkImage('${ApiConstants.baseImageUrl}${itemList[index]['poster_path']}') as ImageProvider
+                              : AssetImage('assets/images/default_poster.jpg'),
                               fit: BoxFit.cover,
                             )
                           ),
@@ -303,11 +304,15 @@ class _TabPageState extends State<TabPage> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 9, left: 12),
-                                child: Text(itemList[index]['date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,),
+                                child: itemList[index]['date'].isNotEmpty
+                                ? Text(itemList[index]['date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,)
+                                : SizedBox.shrink(), 
                                 ),
+                              
                               Padding(
                                 padding: const EdgeInsets.only(bottom: 9, right: 12),
-                                child: Row(
+                                child: itemList[index]['vote_average'] != 0
+                                ? Row(
                                       children: [
                                         const Icon(
                                           Icons.star,
@@ -316,7 +321,8 @@ class _TabPageState extends State<TabPage> {
                                         SizedBox(width: 3,),
                                         Text(itemList[index]['vote_average'].toString(), style: Theme.of(context).textTheme.titleMedium,),
                                       ],
-                                    ),
+                                    )
+                                :SizedBox.shrink()
                                   
                                 ),
                               
