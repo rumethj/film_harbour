@@ -1,6 +1,7 @@
 import 'package:film_harbour/home_page/home_page.dart';
 import 'package:film_harbour/user_auth/login_page.dart';
 import 'package:film_harbour/user_lists_page/user_lists_page.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomNavigationBar extends StatelessWidget {
@@ -11,15 +12,16 @@ class CustomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
+      color: CustomTheme.mainPalletBlack,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            
             IconButton(
               icon: Icon(Icons.list),
+              iconSize: 30,
               color: currentState == 'UserListsPage'
-              ? Colors.amber
-              :Colors.white,
+              ? CustomTheme.mainPalletRed
+              :CustomTheme.mainPalletOffWhite,
               onPressed: currentState != 'UserListsPage'
               ? () {
                 Navigator.pushReplacement(
@@ -41,10 +43,11 @@ class CustomNavigationBar extends StatelessWidget {
               : (){}
             ),
             IconButton(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home_filled),
+              iconSize: 35,
               color: currentState == 'HomePage'
-              ? Colors.amber
-              :Colors.white,
+              ? CustomTheme.mainPalletRed
+              :CustomTheme.mainPalletOffWhite,
               onPressed: currentState != 'HomePage'
               ? () {
                 Navigator.pushReplacement(
@@ -68,7 +71,8 @@ class CustomNavigationBar extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(Icons.logout),
-              color: Colors.white,
+              iconSize: 25,
+              color: CustomTheme.mainPalletOffWhite,
               onPressed: () {
                 Navigator.pushReplacement(
                       context,

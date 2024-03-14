@@ -1,4 +1,5 @@
 import 'package:film_harbour/details_page/movie_details_page.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:http/http.dart' as http;
@@ -35,9 +36,9 @@ class _SearchBarNewState extends State<SearchBarNew> {
           TextField(
             controller: searchText,
             decoration: InputDecoration(
-              prefixIcon: Icon(Icons.search, color: Colors.amber),
+              prefixIcon: Icon(Icons.search, color: CustomTheme.mainPalletRed),
               suffixIcon: IconButton(
-                icon: Icon(Icons.clear, color: Colors.amber.withOpacity(0.6)),
+                icon: Icon(Icons.clear, color: CustomTheme.mainPalletRed),
                 onPressed: () {
                   setState(() {
                     searchText.clear();
@@ -46,9 +47,9 @@ class _SearchBarNewState extends State<SearchBarNew> {
                 },
               ),
               hintText: 'Search',
-              hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               filled: true,
-              fillColor: Colors.white.withOpacity(0.2),
+              fillColor: CustomTheme.mainPalletBlue,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
                 borderSide: BorderSide.none,

@@ -12,7 +12,7 @@ class ForgotPasswordPage extends StatefulWidget {
 
 class _ForgotPasswordState extends State<ForgotPasswordPage> {
   String email = "";
-  TextEditingController emailTextController = new TextEditingController();
+  TextEditingController mailTextController = new TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
@@ -41,35 +41,37 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
       body: Container(
         child: Column(
           children: [
+            SizedBox(
+              height: 70.0,
+            ),
+            Container(
+              alignment: Alignment.topCenter,
+              child: Text(
+                "Password Recovery",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 10.0,
+            ),
+            Text(
+              "Enter your mail",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+            ),
             Expanded(
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Image.asset(
-                        "assets/images/film_harbour_logo_dark.png",
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    SizedBox(height: 30.0),
-                    Container(
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        "Recover Your Password",
-                        style: Theme.of(context).textTheme.bodyLarge
-                      ),
-                    ),
-                    
-                    SizedBox(height: 10.0),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Container(
+                child: Form(
+                    key: _formKey,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.0),
+                      child: ListView(
+                        children: [
+                          Container(
                             padding: EdgeInsets.only(left: 10.0),
                             decoration: BoxDecoration(
                               border:
@@ -83,7 +85,7 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                                 }
                                 return null;
                               },
-                              controller: emailTextController,
+                              controller: mailTextController,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
                                   hintText: "Email",
@@ -95,44 +97,40 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
                                   border: InputBorder.none),
                             ),
                           ),
-                            
-                            SizedBox(height: 20.0),
-                            GestureDetector(
-                              onTap: () {
-                                if (_formKey.currentState!.validate()) {
-                                  setState(() {
-                                    email = emailTextController.text;
-                                  });
-                                }
+                          SizedBox(
+                            height: 40.0,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              if(_formKey.currentState!.validate()){
+                                setState(() {
+                                  email=mailTextController.text;
+                                });
                                 resetUserPassword();
-                              },
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.symmetric(
+                              }
+                            },
+                            child: Container(
+                              width: 140,
+                              padding: EdgeInsets.symmetric(
                                     vertical: 13.0, horizontal: 30.0),
-                                decoration: BoxDecoration(
-                                    color: CustomTheme.mainPalletRed,
-                                    borderRadius: BorderRadius.circular(30)),
-                                child: Center(
-                                  child: Text(
-                                    "Send Email",
-                                    style: Theme.of(context).textTheme.displayMedium,
-                                  ),
+                              decoration: BoxDecoration(
+                                  color: CustomTheme.mainPalletRed,
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: Center(
+                                child: Text(
+                                  "Send Email",
+                                  style: Theme.of(context).textTheme.displayMedium,
                                 ),
                               ),
                             ),
-                            
-                            SizedBox(height: 80.0),
-
-                          ],
-                        ),
+                          ),
+                          SizedBox( height: 50.0),
+                          
+                        ],
                       ),
+                    )
+                    )
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Row(

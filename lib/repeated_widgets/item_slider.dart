@@ -7,7 +7,7 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
 {
   return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
     Padding(
-        padding: const EdgeInsets.only(left: 10.0, top: 15, bottom: 40),
+        padding: const EdgeInsets.only(left: 20.0, top: 15, bottom: 10),
         child: Text(title)),
     Container(
         height: 250,
@@ -41,35 +41,27 @@ Widget SliderList(List itemList, String title, String itemType, int itemCount)
                       margin: EdgeInsets.only(left: 13),
                       width: 170,
                       child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Padding(
-                                padding: const EdgeInsets.only(top: 2, left: 6),
-                                child: Text(itemList[index]['release_date'].substring(0, 4))),
+                                padding: const EdgeInsets.only(bottom: 9, left: 12),
+                                child: Text(itemList[index]['release_date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,)),
                             Padding(
                                 padding:
-                                    const EdgeInsets.only(top: 2, right: 6),
-                                child: Container(
-                                    decoration: BoxDecoration(
-                                        color: Colors.black.withOpacity(0.5),
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 2,
-                                            bottom: 2,
-                                            left: 5,
-                                            right: 5),
-                                        child: Row(
+                                    const EdgeInsets.only(bottom: 9, right: 12),
+                                child: Row(
                                             // Rating
                                             children: [
                                               Icon(Icons.star,
-                                                  color: Colors.yellow,
                                                   size: 15),
                                               SizedBox(width: 2),
-                                              Text(itemList[index]['vote_average'].toString())
-                                            ]))))
-                          ])));
+                                              Text(itemList[index]['vote_average'].toString(), style: Theme.of(context).textTheme.titleMedium,)
+                                            ])
+                                            
+                                            )
+                          ])
+                          ));
             })),
     SizedBox(height: 20)
   ]);

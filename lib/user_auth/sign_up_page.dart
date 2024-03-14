@@ -1,8 +1,10 @@
 import 'package:film_harbour/user_auth/login_page.dart';
 import 'package:film_harbour/home_page/home_page.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -70,7 +72,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -98,7 +99,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xFFedf0f8),
+                                  color: CustomTheme.mainPalletBlue,
                                   borderRadius: BorderRadius.circular(30)),
                               child: TextFormField(
                                 validator: (value) {
@@ -111,9 +112,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Name",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFFb2b7bf),
-                                        fontSize: 18.0)),
+                                    hintStyle: Theme.of(context).textTheme.labelLarge,
+                                    prefixIcon: Icon(
+                                    Icons.person,
+                                    size: 30.0,
+                                  ),
+                                ),
                               ),
                             ),
                             SizedBox(height: 30.0),
@@ -121,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               padding: EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xFFedf0f8),
+                                  color: CustomTheme.mainPalletBlue,
                                   borderRadius: BorderRadius.circular(30)),
                               child: TextFormField(
                                 validator: (value) {
@@ -134,17 +138,20 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Email",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFFb2b7bf),
-                                        fontSize: 18.0)),
-                              ),
+                                    hintStyle: Theme.of(context).textTheme.labelLarge,
+                                    prefixIcon: Icon(
+                                    Icons.email,
+                                    size: 30.0,
+                                  ),
+                                    ),
+                              )
                             ),
                             SizedBox(height: 30.0),
                             Container(
                               padding: EdgeInsets.symmetric(
                                   vertical: 2.0, horizontal: 30.0),
                               decoration: BoxDecoration(
-                                  color: Color(0xFFedf0f8),
+                                  color: CustomTheme.mainPalletBlue,
                                   borderRadius: BorderRadius.circular(30)),
                               child: TextFormField(
                                 controller: passwordTextController,
@@ -157,13 +164,15 @@ class _SignUpPageState extends State<SignUpPage> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "Password",
-                                    hintStyle: TextStyle(
-                                        color: Color(0xFFb2b7bf),
-                                        fontSize: 18.0)),
-                                obscureText: true,
+                                    hintStyle: Theme.of(context).textTheme.labelLarge,
+                                    prefixIcon: Icon(
+                                    Icons.password,
+                                    size: 30.0,
+                                  ),
                               ),
+                              )
                             ),
-                            SizedBox(height: 30.0),
+                            SizedBox(height: 20.0),
                             GestureDetector(
                               onTap: () {
                                 if (_formKey.currentState!.validate()) {
@@ -180,15 +189,12 @@ class _SignUpPageState extends State<SignUpPage> {
                                 padding: EdgeInsets.symmetric(
                                     vertical: 13.0, horizontal: 30.0),
                                 decoration: BoxDecoration(
-                                    color: Color(0xFF273671),
+                                    color: CustomTheme.mainPalletRed,
                                     borderRadius: BorderRadius.circular(30)),
                                 child: Center(
                                   child: Text(
                                     "Sign Up",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 22.0,
-                                        fontWeight: FontWeight.w500),
+                                    style: Theme.of(context).textTheme.displayMedium,
                                   ),
                                 ),
                               ),
@@ -213,12 +219,9 @@ class _SignUpPageState extends State<SignUpPage> {
               children: [
                 Text(
                   "Already have an account?",
-                  style: TextStyle(
-                      color: Color(0xFF8c8e98),
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500),
+                  style: Theme.of(context).textTheme.headlineLarge
                 ),
-                SizedBox(width: 5.0),
+                SizedBox(width: 10.0),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(context,
@@ -226,10 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   },
                   child: Text(
                     "Log In",
-                    style: TextStyle(
-                        color: Color(0xFF273671),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w500),
+                    style: Theme.of(context).textTheme.headlineMedium
                   ),
                 ),
               ],

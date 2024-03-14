@@ -12,7 +12,7 @@ void showNoConnectionSnackbar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       backgroundColor: Colors.red,
-      content: Text('No internet connection'),
+      content: Text('No internet connection. Please connect to a netowrk and try again.'),
       duration: Duration(seconds: 3),
     ),
   );

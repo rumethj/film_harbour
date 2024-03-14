@@ -28,10 +28,7 @@ class _UserReviewState extends State<UserReview> {
                 Expanded(
                   child: Text(
                     'User Reviews',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.titleLarge
                   ),
                 ),
                 GestureDetector(
@@ -46,18 +43,12 @@ class _UserReviewState extends State<UserReview> {
                       showAll == false
                           ? Text(
                               'All Reviews ' + '${reviewDetailsList.length} ',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context).textTheme.titleMedium,
                             )
                           // else/false
                           : Text(
                               'Show Less',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold),
+                              style: Theme.of(context).textTheme.titleMedium,
                             ),
                       Icon(
                         Icons.arrow_forward_ios,
@@ -115,11 +106,7 @@ class _UserReviewState extends State<UserReview> {
                                                 fit: BoxFit.scaleDown,
                                                 child: Text(
                                                   reviewDetailsList[index]['name'],
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16,
-                                                      fontWeight:
-                                                          FontWeight.bold),
+                                                  style: Theme.of(context).textTheme.titleMedium
                                                 ),
                                               ),
                                               SizedBox(
@@ -128,11 +115,7 @@ class _UserReviewState extends State<UserReview> {
                                               Text(
                                                 reviewDetailsList[index]
                                                     ['date'],
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 12,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                style: Theme.of(context).textTheme.bodySmall
                                               ),
                                             ],
                                           ),
@@ -148,7 +131,6 @@ class _UserReviewState extends State<UserReview> {
                                             fit: BoxFit.scaleDown,
                                             child: Icon(
                                               Icons.star,
-                                              color: Colors.yellow,
                                               size: 20,
                                             ),
                                           ),
@@ -159,10 +141,7 @@ class _UserReviewState extends State<UserReview> {
                                             fit: BoxFit.scaleDown,
                                             child: Text(
                                               reviewDetailsList[index]['rating'],
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold),
+                                              style: Theme.of(context).textTheme.titleMedium
                                             ),
                                           ),
                                         ],
@@ -221,10 +200,7 @@ class _UserReviewState extends State<UserReview> {
                                         fit: BoxFit.scaleDown,
                                         child: Text(
                                           reviewDetailsList[0]['name'],
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
+                                          style: Theme.of(context).textTheme.titleMedium
                                         ),
                                       ),
                                       SizedBox(
@@ -232,10 +208,7 @@ class _UserReviewState extends State<UserReview> {
                                       ),
                                       Text(
                                         reviewDetailsList[0]['date'],
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold),
+                                        style: Theme.of(context).textTheme.bodySmall,
                                       ),
                                     ],
                                   ),
@@ -250,7 +223,6 @@ class _UserReviewState extends State<UserReview> {
                                     fit: BoxFit.scaleDown,
                                     child: Icon(
                                       Icons.star,
-                                      color: Colors.yellow,
                                       size: 20,
                                     ),
                                   ),
@@ -261,10 +233,7 @@ class _UserReviewState extends State<UserReview> {
                                     fit: BoxFit.scaleDown,
                                     child: Text(
                                       reviewDetailsList[0]['rating'],
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                      style: Theme.of(context).textTheme.titleMedium
                                     ),
                                   ),
                                 ],

@@ -1,5 +1,6 @@
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:film_harbour/details_page/movie_details_page.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -218,7 +219,7 @@ class _TabPageState extends State<TabPage> {
                   
                         icon: Icon(
                           Icons.arrow_drop_down_outlined,
-                          color: Colors.amber,
+                          color: CustomTheme.mainPalletRed,
                           size: 30,
                         ),
                   
@@ -227,55 +228,35 @@ class _TabPageState extends State<TabPage> {
                           DropdownMenuItem(
                             child: Text(
                               'Newest',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             value: 'release_date.desc',
                           ),
                           DropdownMenuItem(
                             child: Text(
                               'Oldest',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             value: 'release_date.asc',
                           ),
                           DropdownMenuItem(
                             child: Text(
                               'Alphabetical A - Z',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             value: 'title.asc',
                           ),
                           DropdownMenuItem(
                             child: Text(
                               'Alphabetical Z - A',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             value: 'title.desc',
                           ),
                           DropdownMenuItem(
                             child: Text(
                               'Rating',
-                              style: TextStyle(
-                                decoration: TextDecoration.none,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
+                              style: Theme.of(context).textTheme.labelLarge,
                             ),
                             value: 'rating',
                           ),
@@ -316,35 +297,27 @@ class _TabPageState extends State<TabPage> {
                           // margin: EdgeInsets.only(left: 13), // Remove this line
                 
                           // item info
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.only(top: 2, left: 6),
-                                child: Text(itemList[index]['date'].substring(0, 4)),
+                                padding: const EdgeInsets.only(bottom: 9, left: 12),
+                                child: Text(itemList[index]['date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,),
                                 ),
                               Padding(
-                                padding: const EdgeInsets.only(top: 2, left: 6),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
-                                    child: Row(
+                                padding: const EdgeInsets.only(bottom: 9, right: 12),
+                                child: Row(
                                       children: [
                                         const Icon(
                                           Icons.star,
-                                          color: Colors.amber,
                                           size: 15,
                                         ),
-                                        Text(itemList[index]['vote_average'].toString()),
+                                        SizedBox(width: 3,),
+                                        Text(itemList[index]['vote_average'].toString(), style: Theme.of(context).textTheme.titleMedium,),
                                       ],
                                     ),
-                                  ),
-                                ),
+                                  
                                 ),
                               
                             ],

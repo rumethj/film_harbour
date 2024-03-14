@@ -51,12 +51,16 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           'backdrop_path': movieDetailsJsonResults['backdrop_path'],
           'title': movieDetailsJsonResults['title'],
           'poster_path': movieDetailsJsonResults['poster_path'],
-          'vote_average': movieDetailsJsonResults['vote_average'] ?? 'N/A',
-          'release_date': movieDetailsJsonResults['release_date'] ?? 'N/A',
-          'overview': movieDetailsJsonResults['overview'] ?? 'N/A',
-          'runtime': movieDetailsJsonResults['runtime'] ?? 'N/A',
-          'budget': movieDetailsJsonResults['budget'] == 0 ? "N/A" : movieDetailsJsonResults['budget'],
-          'revenue': movieDetailsJsonResults['revenue'] == 0 ? 'N/A' : movieDetailsJsonResults['revenue'],
+          'vote_average': movieDetailsJsonResults['vote_average'],
+          'release_date': movieDetailsJsonResults['release_date'],
+          'overview': movieDetailsJsonResults['overview'],
+          'runtime': movieDetailsJsonResults['runtime'],
+          'budget': movieDetailsJsonResults['budget'] > 0
+          ? movieDetailsJsonResults['budget']
+          : "N/A",
+          'revenue': movieDetailsJsonResults['revenue'] > 0
+          ? movieDetailsJsonResults['revenue']
+          : "N/A",
           'media_type': 'movie',
         });
       //}
@@ -85,8 +89,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           'backdrop_path': similarMoviesJsonResults[i]['backdrop_path'],
           'title': similarMoviesJsonResults[i]['title'],
           'poster_path': similarMoviesJsonResults[i]['poster_path'],
-          'vote_average': similarMoviesJsonResults[i]['vote_average'] ?? 'N/A',
-          'release_date': similarMoviesJsonResults[i]['release_date'] ?? 'N/A',
+          'vote_average': similarMoviesJsonResults[i]['vote_average'],
+          'release_date': similarMoviesJsonResults[i]['release_date'],
           'id': similarMoviesJsonResults[i]['id'],
         });
       }
@@ -111,8 +115,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           'backdrop_path': recommendedMoviesJsonResults[i]['backdrop_path'],
           'title': recommendedMoviesJsonResults[i]['title'],
           'poster_path': recommendedMoviesJsonResults[i]['poster_path'],
-          'vote_average': recommendedMoviesJsonResults[i]['vote_average'] ?? 'N/A',
-          'release_date': recommendedMoviesJsonResults[i]['release_date'] ?? 'N/A',
+          'vote_average': recommendedMoviesJsonResults[i]['vote_average'],
+          'release_date': recommendedMoviesJsonResults[i]['release_date'],
           'id': recommendedMoviesJsonResults[i]['id'],
         });
       }
@@ -235,11 +239,11 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         // Title
                         Container(
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.only(left: 16,right: 8,top: 8,bottom: 8),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(itemDetails[0]['title']),
+                                Text(itemDetails[0]['title'], style: Theme.of(context).textTheme.bodyLarge),
                                 IconButton(
                                   onPressed: () {
                                     shareItem();
@@ -282,7 +286,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                       color: Color.fromRGBO(25, 25, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
                                     ),
-                                    child: Text(genresList[index].toString())
+                                    child: Text(genresList[index].toString(), style: Theme.of(context).textTheme.labelMedium)
                                   );
                                 }
                                 ),
@@ -291,7 +295,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         ),
 
                         // Run time
-                        Row(
+                        itemDetails[0]['runtime'] > 0
+                        ? Row(
                           children: [
                             Container(
                               padding: EdgeInsets.all(10),
@@ -301,24 +306,22 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                                       color: Color.fromRGBO(25, 25, 25, 1),
                                       borderRadius: BorderRadius.circular(10),
                               ),
-                              child: Text(itemDetails[0]['runtime'].toString() + ' minutes'),
+                              child: Text(itemDetails[0]['runtime'].toString() + ' minutes', style: Theme.of(context).textTheme.labelMedium)
                             
                             )
                           ],
-                        ),
+                        )
+                        :SizedBox.shrink(),
                       ],
                     ),
 
                     // Overview section
-                    Padding(
+                    itemDetails[0]['overview'].isNotEmpty
+                    ? Padding(
                       padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text('Overveiw'),
-                    ),
-
-                    Padding(
-                      padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text(itemDetails[0]['overview'].toString()),
-                    ),
+                      child: Text(itemDetails[0]['overview'].toString(), style: Theme.of(context).textTheme.headlineLarge),
+                    )
+                    : SizedBox.shrink(),
                     
                     // Review Section
                     Padding(
@@ -328,22 +331,27 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
                     Padding(  
                       padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text('Release Date : '+ itemDetails[0]['release_date'].toString()),
+                      child: Text('Release Date : '+ itemDetails[0]['release_date'].toString(), style: Theme.of(context).textTheme.headlineLarge),
                     ),
 
                     Padding(  
                       padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text('Budget : '+ itemDetails[0]['budget'].toString()),
+                      child: Text('Budget : \$'+ itemDetails[0]['budget'].toString(), style: Theme.of(context).textTheme.headlineLarge),
                     ),
 
                     Padding(  
                       padding: EdgeInsets.only(left: 20, top: 10),
-                      child: Text('Revenue : '+ itemDetails[0]['revenue'].toString()),
+                      child: Text('Revenue : \$'+ itemDetails[0]['revenue'].toString(), style: Theme.of(context).textTheme.headlineLarge),
                     ),
 
-                    SliderList(similarItems, "More Movies Like This", itemDetails[0]['media_type'], similarItems.length),
+                    similarItems.isNotEmpty
+                    ? SliderList(similarItems, "More Movies Like This", itemDetails[0]['media_type'], similarItems.length)
+                    : SizedBox.shrink(),
 
-                    SliderList(recommendedItems, "Recomended For You", itemDetails[0]['media_type'], recommendedItems.length),
+                    recommendedItems.isNotEmpty
+                    ? SliderList(recommendedItems, "Recomended For You", itemDetails[0]['media_type'], recommendedItems.length)
+                    : SizedBox.shrink(),
+                    
                    ])
                 )
               ]
@@ -360,7 +368,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           {
             return Center(
               child: CircularProgressIndicator(
-                color: Colors.amber,
               ),
             );
 

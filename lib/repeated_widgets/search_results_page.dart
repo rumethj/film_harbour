@@ -1,6 +1,7 @@
 import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:film_harbour/repeated_widgets/search_bar_element2.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/details_page/checker.dart';
 import 'package:http/http.dart' as http;
@@ -119,8 +120,8 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
               itemBuilder: (context, index) {
                 // Result items
                 return Card(
-                  elevation: 4,
-                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  elevation: 0,
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 1),
                   child: InkWell(
                     onTap: () {
                       Navigator.push(
@@ -157,24 +158,24 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
+                                SizedBox(height: 8,),
                                 // Movie Title
                                 Text(
                                   searchResult[index]['title'],
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge,
                                 ),
                                 SizedBox(height: 5),
                                 // Movie Overview
                                 Text(
-                                  'Overview: ${searchResult[index]['overview']}',
+                                  '${searchResult[index]['overview']}',
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.labelLarge,
                                 ),
                                 SizedBox(height: 5),
                                 // Movie Popularity
-                                Text('Popularity: ${searchResult[index]['popularity']}'),
+                                Text('Popularity: ${searchResult[index]['popularity']}',
+                                  style: Theme.of(context).textTheme.labelMedium,),
                               ],
                             ),
                           ),
@@ -190,7 +191,6 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
           {
             return Center(
               child: CircularProgressIndicator(
-                color: Colors.amber,
               ),
             );
           }

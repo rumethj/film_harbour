@@ -5,6 +5,7 @@ import 'package:film_harbour/details_page/checker.dart';
 import 'package:film_harbour/repeated_widgets/bottom_nav_bar.dart';
 import 'package:film_harbour/repeated_widgets/user_list_action.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -155,8 +156,7 @@ class _UserListsPageState extends State<UserListsPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('Your List',
-                  style:TextStyle(
-                    color: Colors.white.withOpacity(0.8), fontSize: 16)),
+                  style: Theme.of(context).textTheme.bodyLarge),
                     SizedBox(width: 10),
 
                     // Dropdown
@@ -181,7 +181,7 @@ class _UserListsPageState extends State<UserListsPage> {
 
                           icon: Icon(
                             Icons.arrow_drop_down_outlined,
-                            color: Colors.amber,
+                            color: CustomTheme.mainPalletRed,
                             size: 30,
                           ),
 
@@ -190,22 +190,14 @@ class _UserListsPageState extends State<UserListsPage> {
                             DropdownMenuItem(
                               child: Text(
                                 'Watch List',
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
+                                style: Theme.of(context).textTheme.titleMedium
                               ),
                               value: 'watch',
                             ),
                             DropdownMenuItem(
                               child: Text(
                                 'Watched List',
-                                style: TextStyle(
-                                  decoration: TextDecoration.none,
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                ),
+                                style: Theme.of(context).textTheme.titleMedium
                               ),
                               value: 'watched',
                             ),
@@ -217,14 +209,6 @@ class _UserListsPageState extends State<UserListsPage> {
             ),   
           ),
           
-          // Grid view of list
-        //   SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: const EdgeInsets.only(left: 10.0, top: 15, bottom: 10),
-        //     child: Text("Popular"),
-        //   ),
-        // ),
-
         // Grid view of list
         SliverToBoxAdapter(
           child: Container(
@@ -234,7 +218,7 @@ class _UserListsPageState extends State<UserListsPage> {
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
-                    child: CircularProgressIndicator(color: Colors.amber.shade400),
+                    child: CircularProgressIndicator(),
                   );
                 } else {
                   return GridView.builder(
@@ -266,35 +250,26 @@ class _UserListsPageState extends State<UserListsPage> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.end,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 2, left: 6),
-                                child: Text(userList[index]['date'].substring(0, 4)),
+                                child: Text(userList[index]['date'].substring(0, 4), style: Theme.of(context).textTheme.titleMedium,),
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 2, left: 6),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withOpacity(0.5),
-                                    borderRadius: BorderRadius.circular(5),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 2, bottom: 2, left: 5, right: 5),
-                                    child: Row(
+                                child: Row(
                                       children: [
                                         const Icon(
                                           Icons.star,
-                                          color: Colors.amber,
                                           size: 15,
                                         ),
-                                        Text(userList[index]['vote_average'].toString()),
+                                        Text(userList[index]['vote_average'].toString(), style: Theme.of(context).textTheme.titleMedium,),
                                       ],
                                     ),
-                                  ),
-                                ),
+                                 
                               ),
                             ],
                           ),
