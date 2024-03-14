@@ -62,7 +62,7 @@ class _UserListsPageState extends State<UserListsPage> {
                 'title': tvDetailsJsonResults['name'],
                 'poster_path': tvDetailsJsonResults['poster_path'],
                 'vote_average': tvDetailsJsonResults['vote_average'] ?? 'N/A',
-                'date': tvDetailsJsonResults['release_date'] ?? 'N/A',
+                'date': tvDetailsJsonResults['first_air_date'] ?? 'N/A',
                 'media_type': 'tv',
               });
           } 
@@ -84,8 +84,6 @@ class _UserListsPageState extends State<UserListsPage> {
         print('Response Status Code: ${movieDetailsResponse.statusCode}');
         if (movieDetailsResponse.statusCode == 200)
         {
-            
-          //var tempData = jsonDecode(movieDetailsResponse.body);
           var movieDetailsJsonResults = jsonDecode(movieDetailsResponse.body);
 
             userList.add({
@@ -114,7 +112,7 @@ class _UserListsPageState extends State<UserListsPage> {
                 'title': tvDetailsJsonResults['name'],
                 'poster_path': tvDetailsJsonResults['poster_path'],
                 'vote_average': tvDetailsJsonResults['vote_average'] ?? 'N/A',
-                'date': tvDetailsJsonResults['release_date'] ?? 'N/A',
+                'date': tvDetailsJsonResults['first_air_date'] ?? 'N/A',
                 'media_type': 'tv',
               });
           } 

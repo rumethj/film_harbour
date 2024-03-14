@@ -1,5 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:connectivity/connectivity.dart';
 
 void checkConnectivity(BuildContext context) async {
   var connectivityResult = await Connectivity().checkConnectivity();
@@ -11,8 +12,8 @@ void checkConnectivity(BuildContext context) async {
 void showNoConnectionSnackbar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
-      backgroundColor: Colors.red,
-      content: Text('No internet connection. Please connect to a netowrk and try again.'),
+      backgroundColor: CustomTheme.mainPalletDarkRed,
+      content: Text('No internet connection.', style: Theme.of(context).textTheme.labelSmall),
       duration: Duration(seconds: 3),
     ),
   );

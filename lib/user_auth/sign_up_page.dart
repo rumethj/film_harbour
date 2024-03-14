@@ -31,9 +31,10 @@ class _SignUpPageState extends State<SignUpPage> {
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: CustomTheme.mainPalletBlue,
             content: Text(
           "Registered Successfully",
-          style: TextStyle(fontSize: 20.0),
+          style: Theme.of(context).textTheme.labelSmall,
         )));
         // ignore: use_build_context_synchronously
         Navigator.push(
@@ -53,10 +54,10 @@ class _SignUpPageState extends State<SignUpPage> {
         else if (e.code == "email-already-in-use") 
         {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              backgroundColor: Colors.orangeAccent,
+              backgroundColor: CustomTheme.mainPalletDarkRed,
               content: Text(
                 "Account Already exists",
-                style: TextStyle(fontSize: 18.0),
+                style: Theme.of(context).textTheme.labelSmall,
               )));
         }
       }
@@ -168,8 +169,11 @@ class _SignUpPageState extends State<SignUpPage> {
                                     prefixIcon: Icon(
                                     Icons.password,
                                     size: 30.0,
+                                    
                                   ),
                               ),
+                                obscureText: true,
+
                               )
                             ),
                             SizedBox(height: 20.0),

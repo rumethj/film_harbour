@@ -5,7 +5,7 @@
 import FlutterMacOS
 import Foundation
 
-import connectivity_macos
+import connectivity_plus
 import firebase_auth
 import firebase_core
 import flutter_inappwebview_macos

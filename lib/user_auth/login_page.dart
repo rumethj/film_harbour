@@ -37,20 +37,20 @@ class _LogInPageState extends State<LogInPage> {
       {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.orangeAccent,
+            backgroundColor: CustomTheme.mainPalletDarkRed,
             content: Text(
               "No User Found for that Email",
-              style: TextStyle(fontSize: 18.0),
+              style: Theme.of(context).textTheme.labelSmall,
             )));
       } 
       else if (e.code == 'wrong-password') 
       {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            backgroundColor: Colors.orangeAccent,
+            backgroundColor: CustomTheme.mainPalletDarkRed,
             content: Text(
               "Wrong Password Provided by User",
-              style: TextStyle(fontSize: 18.0),
+              style: Theme.of(context).textTheme.labelSmall,
             )));
       }
     }

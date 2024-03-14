@@ -87,7 +87,14 @@ class CustomTheme
                       fontWeight: FontWeight.w700,
 
                       )),
-      // labelSmall:
+      
+      labelSmall:GoogleFonts.raleway(
+                    textStyle: TextStyle(
+                      color: CustomTheme.mainPalletWhite,
+                      fontSize: 10.0,
+                      fontWeight: FontWeight.w500,
+
+                      )),
 
       bodyLarge:GoogleFonts.raleway(
                     textStyle: TextStyle(

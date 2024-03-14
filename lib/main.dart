@@ -30,17 +30,7 @@ class MyApp extends StatelessWidget {
       
       debugShowCheckedModeBanner: false,
       title: "Film Harbour",
-      // home: Builder(
-      //   builder: (context) {
-      //     checkConnectivity(context); // Call checkConnectivity here
-      //     return SignUpPage(); // Or any other page you want to show initially
-      //   },
-      // ), 
-      //home: HomePage(),
-      home: ForgotPasswordPage(),
-      //home: LogInPage(),
-      //home: SignUpPage(),
-      //home: UserListsPage(),
+      home: HomePage()
     );
   }
 }

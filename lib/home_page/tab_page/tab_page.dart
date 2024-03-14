@@ -187,7 +187,7 @@ class _TabPageState extends State<TabPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting){
           return Center(
-            child: CircularProgressIndicator(color: Colors.amber.shade400),
+            child: CircularProgressIndicator(),
           );
         }
         else

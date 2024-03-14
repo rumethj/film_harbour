@@ -1,3 +1,5 @@
+import 'package:film_harbour/details_page/person_details_page.dart';
+import 'package:film_harbour/details_page/tv_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/details_page/movie_details_page.dart';
 
@@ -22,7 +24,11 @@ class _DescriptionCheckUiState extends State<DescriptionCheckUi> {
     }
     else if (widget.newType == 'tv')
     {
-      //return TvDetailsPage(widget.newId);
+      return TvDetailsPage(widget.newId);
+    }
+    else if (widget.newType == 'person')
+    {
+      return PersonDetailsPage(widget.newId);
     }
     else
     {

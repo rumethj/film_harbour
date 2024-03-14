@@ -5,6 +5,7 @@ import 'package:film_harbour/repeated_widgets/item_slider.dart';
 import 'package:film_harbour/repeated_widgets/user_list_action.dart';
 import 'package:film_harbour/repeated_widgets/user_review_element.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
+import 'package:film_harbour/utils/responsive/responsive_util.dart';
 import 'package:flutter/material.dart';
 import 'package:film_harbour/api_key/api_constants.dart';
 import 'package:flutter/services.dart';
@@ -218,7 +219,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                     background: FittedBox(
-                      fit: BoxFit.fill,
+                      fit: BoxFit.fitWidth,
                       child: trailerList.isNotEmpty
                         ? WatchTrailer(trailerList[0]['key'])
                         : itemDetails[0]['backdrop_path'] != null ?
@@ -227,7 +228,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             '${ApiConstants.baseImageUrl}${itemDetails[0]['backdrop_path']}',
                             fit: BoxFit.cover,
                           )
-                        : Image.asset('assets/images/default_backdrop.jpg')
+                        : Image.asset('assets/images/default_backdrop.jpg', fit: BoxFit.cover)
                     ),
                   ),
                 ),
@@ -256,8 +257,9 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                         ),
                         
                         // Add to list Buttons
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        ResponsiveWidget(
+                        mobile: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             ListActionButton("Add to Watch List", Icons.add, () {
                               addToWatchList(widget.itemId);
@@ -266,7 +268,19 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                               addToWatchedList(widget.itemId);
                             }),
                           ]
-                        ),
+                        ), 
+                        desktop: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ListActionButton("Add to Watch List", Icons.add, () {
+                              addToWatchList(widget.itemId);
+                            }),
+                            ListActionButton("Add to Watched List", Icons.add, () {
+                              addToWatchedList(widget.itemId);
+                            }),
+                          ]
+                        ),),
+                        
                         // Display Genres
                         Row(
                           children: [
