@@ -1,3 +1,4 @@
+import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -27,7 +28,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
         forceHD: true,
       ),
     );
-  } // sarbagyastha.com.np (2024) Youtube_player_flutter, pub.dev. Available at: https://pub.dev/packages/youtube_player_flutter.
+  } // (niranjandahal. 2024)
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
         bufferIndicator: const Center(
           child: Center(
               child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
+            valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(227, 45, 86, 1)),
           )),
         ),
         
@@ -56,7 +57,7 @@ class _WatchTrailerState extends State<WatchTrailer> {
               isExpanded: true,
               colors: ProgressBarColors(
                 playedColor: Colors.white,
-                handleColor: Colors.amber,
+                handleColor: CustomTheme.mainPalletRed,
               )),
           RemainingDuration(),
           FullScreenButton(),

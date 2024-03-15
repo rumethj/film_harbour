@@ -13,7 +13,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 class HomePage extends StatefulWidget
 {
-  static const String routeName = '/home';
   const HomePage({super.key});
 
   @override
@@ -28,6 +27,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
   Future<void> trendingListFunction() async
   {
 
+    // Reading depending on type selected from drop down
     if (uSelection == 'movie')
     {
       var trendingMovieResponse = await http.get(Uri.parse(ApiLink.trendingMovieDayUrl));
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
       bottomNavigationBar: CustomNavigationBar(currentState: "HomePage"),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(
+          SliverAppBar( // Top bar
             centerTitle: true,
             toolbarHeight: 60,
             pinned: true,
@@ -113,9 +113,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                 future: trendingListFunction(),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done){
+                    // Movie slider
                     return CarouselSlider(
                         options: CarouselOptions(
-                          viewportFraction: 0.9, // Change this according to screen size
+                          viewportFraction: 0.9, // Update according to Screen
                           autoPlay: true,
                           autoPlayInterval: Duration(seconds:3),
                           height: MediaQuery.of(context).size.height),
@@ -187,7 +188,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin
                 },
               ),
             ),
-
+            
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [

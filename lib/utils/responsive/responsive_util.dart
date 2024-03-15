@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// For finding device width and returning specific widget
+
 class ResponsiveWidget extends StatelessWidget {
   final Widget mobile;
   final Widget desktop;

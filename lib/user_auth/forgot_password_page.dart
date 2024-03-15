@@ -16,7 +16,8 @@ class _ForgotPasswordState extends State<ForgotPasswordPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  resetUserPassword() async {
+  // Call to reset user password
+  resetUserPassword() async { // (shivam22rkl. 2023)
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       ScaffoldMessenger.of(context).showSnackBar(

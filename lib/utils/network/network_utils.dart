@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
+// network connected chcker
 void checkConnectivity(BuildContext context) async {
   var connectivityResult = await Connectivity().checkConnectivity();
   if (connectivityResult == ConnectivityResult.none) {
@@ -9,6 +10,7 @@ void checkConnectivity(BuildContext context) async {
   }
 }
 
+// error message for network
 void showNoConnectionSnackbar(BuildContext context) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(

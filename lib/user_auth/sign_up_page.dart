@@ -20,7 +20,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
   final _formKey = GlobalKey<FormState>(); // Used for validation
 
-  RegisterUser() async {
+  RegisterUser() async { // (shivam22rkl. 2023)
     if (password != "" && emailTextController.text!="") 
     {
       try 

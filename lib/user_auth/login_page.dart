@@ -1,7 +1,5 @@
-// ignore_for_file: use_build_context_synchronously
 
 import 'package:film_harbour/user_auth/forgot_password_page.dart';
-//import 'package:film_harbour/service/auth.dart';
 import 'package:film_harbour/home_page/home_page.dart';
 import 'package:film_harbour/utils/network/network_utils.dart';
 import 'package:film_harbour/utils/theme/theme.dart';
@@ -25,7 +23,7 @@ class _LogInPageState extends State<LogInPage> {
 
   final _formKey = GlobalKey<FormState>();
 
-  LoginUser() async {
+  LoginUser() async { // (shivam22rkl. 2023)
     try 
     {
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);

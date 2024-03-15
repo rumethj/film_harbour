@@ -27,11 +27,11 @@ class _TabPageState extends State<TabPage> {
 
   String uSortSelection = 'release_date.desc';
 
-  // Fill Popular List
+  // Fill Tab List
   Future<void> tabItemListFunction() async
   {
     
-
+    // Changes depending on uSelection
     if (uSelection == 'movie')
     {
       var movieResponse;
@@ -266,16 +266,17 @@ class _TabPageState extends State<TabPage> {
                 )
               : SizedBox.shrink(),
               
+              // main grid
               Flexible(
                 child: Container(
                   //height: 250,
                   child: GridView.builder(
-                    physics: BouncingScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 180, // Adjust this value based on your desired width
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 180,
                       crossAxisSpacing: 8.0,
                       mainAxisSpacing: 8.0,
-                      childAspectRatio: 2 / 3, // Set the aspect ratio to 2:3
+                      childAspectRatio: 2 / 3, 
                     ),
                     itemCount: itemList.length,
                     shrinkWrap: true,
@@ -347,6 +348,6 @@ class _TabPageState extends State<TabPage> {
     setState(() {
       uSortSelection = newSortSelection;
     });
-    // Now, the Popular widget will be rebuilt with the updated userSelection
+    // Now, the tab widget will be rebuilt with the updated uSortSelection
   }
 }
