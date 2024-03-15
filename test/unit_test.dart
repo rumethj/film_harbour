@@ -8,7 +8,6 @@ import 'package:film_harbour/details_page/movie_details_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mockito/mockito.dart';
 
-
 void main() {
   group('DescriptionCheckUi Widget Tests', () {
     testWidgets('Renders ErrorUi for unknown type', (WidgetTester tester) async {
@@ -31,35 +30,32 @@ void main() {
   });
 
   group('Shared Preferences Utils', () {
-    SharedPreferences mockSharedPreferences = MockSharedPreferences();
     test('Read watch list', () async {
-      // Mock SharedPreferences instance
+      // Arrange
+      SharedPreferences mockSharedPreferences = MockSharedPreferences();
       when(mockSharedPreferences.getStringList('watchList')).thenReturn(['123', '456', '789']); // Existing items in watch list
-
-      // Mock SharedPreferences.getInstance() to return the mockSharedPreferences instance
       SharedPreferences.setMockInitialValues({'watchList': ['123', '456', '789']});
 
+      // Act
       List<int> watchList = await readWatchList();
 
-      // Verify that the correct watch list is returned
+      // Assert
       expect(watchList, [123, 456, 789]);
     });
 
     test('Read watched list', () async {
-      // Mock SharedPreferences instance
+      // Arrange
+      SharedPreferences mockSharedPreferences = MockSharedPreferences();
       when(mockSharedPreferences.getStringList('watchedList')).thenReturn(['987', '654', '321']); // Existing items in watched list
-
-      // Mock SharedPreferences.getInstance() to return the mockSharedPreferences instance
       SharedPreferences.setMockInitialValues({'watchedList': ['987', '654', '321']});
 
+      // Act
       List<int> watchedList = await readWatchedList();
 
-      // Verify that the correct watched list is returned
+      // Assert
       expect(watchedList, [987, 654, 321]);
     });
   });
-
-  
 }
 
 // Mock SharedPreferences class
